@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_NET", "ADO_NET\ADO_NET.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_NET_HW", "ADO_NET_HW\ADO_NET_HW.csproj", "{6ACD61B9-8214-4878-8079-0FDD46759FBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_NET_Param_quer", "ADO_NET_Param_quer\ADO_NET_Param_quer.csproj", "{4D572553-3F61-449F-BE43-5F48C1E1522A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6ACD61B9-8214-4878-8079-0FDD46759FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ACD61B9-8214-4878-8079-0FDD46759FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ACD61B9-8214-4878-8079-0FDD46759FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D572553-3F61-449F-BE43-5F48C1E1522A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D572553-3F61-449F-BE43-5F48C1E1522A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D572553-3F61-449F-BE43-5F48C1E1522A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D572553-3F61-449F-BE43-5F48C1E1522A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
