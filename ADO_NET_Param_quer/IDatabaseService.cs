@@ -7,6 +7,7 @@ namespace ADO_NET
 {
 	public interface IDatabaseService : IDisposable //Inherit IDisposable, so it can be used inside a "using" statement.
 													//This file defines the interface for database operations. Interfaces define a contract that implementing classes must adhere to.
+													//Implementing IDisposable allows us to use the using statement, which guarantees that Dispose() is called, even if exceptions occur.
 	{
 		// Properties
 		string ConnectionString { get; }
