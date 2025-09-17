@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_NET_HW", "ADO_NET_HW\AD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_NET_Param_quer", "ADO_NET_Param_quer\ADO_NET_Param_quer.csproj", "{4D572553-3F61-449F-BE43-5F48C1E1522A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_NET_CLASS_CONNECTOR", "ADO_NET_CLASS_CONNECTOR\ADO_NET_CLASS_CONNECTOR.csproj", "{2E0C6A74-E004-4F38-810E-C0EBD258FB39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4D572553-3F61-449F-BE43-5F48C1E1522A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D572553-3F61-449F-BE43-5F48C1E1522A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D572553-3F61-449F-BE43-5F48C1E1522A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E0C6A74-E004-4F38-810E-C0EBD258FB39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E0C6A74-E004-4F38-810E-C0EBD258FB39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E0C6A74-E004-4F38-810E-C0EBD258FB39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E0C6A74-E004-4F38-810E-C0EBD258FB39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
