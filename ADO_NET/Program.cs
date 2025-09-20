@@ -1,5 +1,7 @@
 ﻿//ADO_NET
+//ADO (ActiveX Data Object) JSON, XML, MS SQL Server, MySQL, Oracle....
 //#define SCALAR_CHECK
+//#define ALL_IN_MAIN_CLASS
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,21 +9,23 @@ using System.Text;
 using System.Threading.Tasks;
 //ADO.NET:
 using System.Data.SqlClient;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using.System.Configuration;
 using System.Configuration;
 
 namespace ADO_NET
 {
 	class Program
 	{
+#if ALL_IN_MAIN_CLASS
 		static string connectionString = "";
-		static SqlConnection connection;
+		static SqlConnection connection; 
+#endif
+
 		static void Main(string[] args)
 		{
-			//0) Достаём строку пожключения из App.config
+#if ALL_IN_MAIN_CLASS
+			//0) Достаем строку подключения из App.config:
 			connectionString = ConfigurationManager.ConnectionStrings["Movies"].ConnectionString;
-			//1) Создаём подключение к базу данных на сервере
+			//1) Создаем подключение к Базе данных на Сервере:
 			Console.WriteLine(connectionString);
 			connection = new SqlConnection();
 			connection.ConnectionString = connectionString;
@@ -29,16 +33,17 @@ namespace ADO_NET
 			//Select("SELECT * FROM Directors");
 			//Select("SELECT * FROM Movies");
 			Select("*", "Directors");
-			Select("movie_name,release_date,first_name+last_name AS Director", "Movies,Directors", "director=director_id");
+			Select("movie_name,release_date,first_name+last_name AS Режиссер", "Movies,Directors", "director=director_id"); 
+#endif
 
 #if SCALAR_CHECK
 			connection.Open();
 			string cmd = "SELECT COUNT(*) FROM Directors";
 			SqlCommand command = new SqlCommand(cmd, connection);
-			Console.WriteLine($"Directors number:\t{command.ExecuteScalar()}");
+			Console.WriteLine($"Количество режиссереов:\t{command.ExecuteScalar()}");
 
-			command.CommandText = "SELECT COUNT (*) FROM Movies";
-			Console.WriteLine($"Movies number:\t{command.ExecuteScalar()}");
+			command.CommandText = "SELECT COUNT(*) FROM Movies";
+			Console.WriteLine($"Количество киношек:\t{command.ExecuteScalar()}");
 
 			command.CommandText = "SELECT last_name FROM Directors WHERE first_name=N'James'";
 			Console.WriteLine(command.ExecuteScalar());
@@ -46,133 +51,35 @@ namespace ADO_NET
 			connection.Close();
 
 			Console.WriteLine(Scalar("SELECT last_name FROM Directors WHERE first_name=N'James'"));
-			Console.WriteLine(Scalar("SELECT COUNT (*) FROM Movies"));
-
+			Console.WriteLine(Scalar("SELECT COUNT(*) FROM Movies")); 
 #endif
 			//InsertDirector();
-			InsertMovie();
+			//InsertMovie();
+
+			MovieConnector movie_connector =
+				new MovieConnector(ConfigurationManager.ConnectionStrings["Movies"].ConnectionString);
+			movie_connector.SelectDirectors();
+			movie_connector.SelectMovies();
+			//movie_connector.InsertDirector();
+			//movie_connector.InsertMovie();
+			movie_connector.Select("*", "Movies,Directors", "director=director_id;DROP TABLE Actors");
+			//Connector connector =
+				//new Connector(ConfigurationManager.ConnectionStrings["Movies"].ConnectionString);
+			//connector.SelectWithParameters("James", "Cameron");
+
 		}
 
-		static void InsertMovie()
-		{
-			Console.Write("Movie name: ");
-			string movie_name = Console.ReadLine();
-			Console.Write("Release date: ");
-			string release_date = Console.ReadLine();
-			Console.Write("Director: ");
-			string director = Console.ReadLine();
-
-			Insert
-				("Movies", 
-				"movie_id,movie_name,release_date,director",
-				$"{Convert.ToInt32(Scalar("SELECT MAX(movie_id) FROM Movies"))+1},N'{movie_name}',N'{release_date}',{GetDirectorID(director)}"
-				);
-			
-			Select
-				(
-				"movie_name,release_date,first_name,last_name",
-				"Movies,Directors",
-				"director=director_id"
-				);
-		}
-		static int GetDirectorID(string full_name)
-		{
-			return Convert.ToInt32(
-				Scalar
-				(
-					$"SELECT director_id FROM Directors WHERE first_name=N'{full_name.Split(' ').First()}' AND last_name=N'{full_name.Split(' ').Last()}'"
-				)
-			);
-		}
-		static void InsertDirector()
-		{ 
-			Console.Write("Enter first_name: ");
-			string first_name = Console.ReadLine();
-			
-			Console.Write("Enter last_name: ");
-			string last_name = Console.ReadLine();
-
-			Insert
-				(
-				"Directors",
-				"director_id,first_name,last_name",
-				$"{Convert.ToInt32(Scalar("SELECT MAX(director_id) FROM Directors"))+1}, N'{first_name}', N'{last_name}'"
-				);
-			
-			Select("*", "Directors");
-		}
-
-		static void Insert(string table, string fields, string values)
-		{
-			string primary_key = Scalar
-				(
-				$@"SELECT COLUMN_NAME
-FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-WHERE	OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA+'.'+QUOTENAME(CONSTRAINT_NAME)), 'IsPrimaryKey')=1
-AND		TABLE_NAME='{table}'"
-				) as string;
-			Console.WriteLine("\n========================\n");
-			Console.WriteLine(primary_key);
-			Console.WriteLine("\n========================\n");
-			string[] fields_for_check = fields.Split(',');
-			string[] values_for_check = values.Split(',');
-			string condition = "";
-			for (int i =1; i<fields_for_check.Length; i++)
-			{
-				condition += $" {fields_for_check[i]}={values_for_check[i]} AND";
-			}
-			int index_of_last_space = condition.LastIndexOf(' ');
-			Console.WriteLine($"Condition length: {condition.Length}");
-			Console.WriteLine($"Last space index: {index_of_last_space}");
-			condition = condition.Remove(index_of_last_space, 4);
-			string cmd = $"IF NOT EXISTS(SELECT {primary_key} FROM {table} WHERE {condition})BEGIN INSERT {table}({fields}) VALUES({values}); END";
-
-			SqlCommand command = new SqlCommand(cmd, connection);
-
-			connection.Open();
-			command.ExecuteNonQuery();
-			connection.Close();
-		}
-		static void Select(string fields, string tables, string condition="")
-		{
-			//2) Открываем соединение. После создания подключение (соединение) не является открытым. Подключение открывается вручную при необходимости
-			connection.Open();
-
-			///////////////////////
-
-			////3) Создаём 'SqlCommand'
-			string cmd = $"SELECT {fields} FROM {tables}";
-			if (condition != "") cmd += $" WHERE {condition}";
-			cmd += ";";
-			SqlCommand command = new SqlCommand(cmd, connection);
-
-			////4) Создаём ‘Reader’
-			SqlDataReader reader = command.ExecuteReader();
-			for (int i = 0; i < reader.FieldCount; i++)
-			{
-				Console.Write(reader.GetName(i) + "\t");
-			}
-			Console.WriteLine();
-			while (reader.Read())
-			{
-				//Console.WriteLine($"{reader[0]}\t{reader[1]}\t{reader[2]}");
-				for (int i = 0; i < reader.FieldCount; i++)
-					Console.Write(reader[i]+"\t\t");
-				Console.WriteLine();
-			}
-			reader.Close();
-
-			//////////////////////////
-			//Подключение обязательно нужно закрывать.
-			connection.Close();
-		}
-		static object Scalar(string cmd)
-		{
-			connection.Open();
-			SqlCommand command = new SqlCommand(cmd, connection);
-			object obj = command.ExecuteScalar();
-			connection.Close();
-			return obj;
-		}
 	}
 }
+/*
+CREATE TABLE [dbo].[Movies] (
+    [movie_id]    INT            NOT NULL,
+    [movie_name]  NVARCHAR (256) NOT NULL,
+    [relese_date] DATE           NOT NULL,
+    [director]    INT            NOT NULL,
+    CONSTRAINT [FK_Movies_Directors] FOREIGN KEY ([director]) REFERENCES [dbo].[Directors] ([director_id]), 
+    CONSTRAINT [PK_Movies] PRIMARY KEY ([movie_id])
+);
+
+
+ */
