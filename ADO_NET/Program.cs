@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 //ADO.NET:
 using System.Data.SqlClient;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using.System.Configuration;
+using System.Configuration;
 
 namespace ADO_NET
 {
 	class Program
 	{
-		static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Movies;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+		static string connectionString = "";
 		static SqlConnection connection;
 		static void Main(string[] args)
 		{
+			//0) Достаём строку пожключения из App.config
+			connectionString = ConfigurationManager.ConnectionStrings["Movies"].ConnectionString;
 			//1) Создаём подключение к базу данных на сервере
 			Console.WriteLine(connectionString);
 			connection = new SqlConnection();
