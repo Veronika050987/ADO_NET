@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Academy.Properties
+namespace Academy_PD_411.Properties
 {
 
 

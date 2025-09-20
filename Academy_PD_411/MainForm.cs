@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace Academy
+namespace Academy_PD_411
 {
 	public partial class MainForm : Form
 	{
 		string connectionString = "Data Source=LAPTOP-4AUB2J6T\\SQLEXPRESS;Initial Catalog=PD_321;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-		SqlConnection connection;
+		SqlConnection connection; 
 		public MainForm()
 		{
 			InitializeComponent();

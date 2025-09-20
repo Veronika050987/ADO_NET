@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Academy
+namespace Academy_PD_411
 {
 	internal static class Program
 	{

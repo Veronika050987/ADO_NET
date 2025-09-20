@@ -1,4 +1,4 @@
-﻿namespace Academy
+﻿namespace Academy_PD_411
 {
 	partial class MainForm
 	{
@@ -34,9 +34,12 @@
 			this.tabPageDirections = new System.Windows.Forms.TabPage();
 			this.tabPageDisciplines = new System.Windows.Forms.TabPage();
 			this.tabPageTeachers = new System.Windows.Forms.TabPage();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.dataGridViewDirections = new System.Windows.Forms.DataGridView();
 			this.tabControl1.SuspendLayout();
 			this.tabPageDirections.SuspendLayout();
+			this.tabPageTeachers.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDirections)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -97,6 +100,7 @@
 			// 
 			// tabPageTeachers
 			// 
+			this.tabPageTeachers.Controls.Add(this.dataGridView1);
 			this.tabPageTeachers.Location = new System.Drawing.Point(4, 25);
 			this.tabPageTeachers.Name = "tabPageTeachers";
 			this.tabPageTeachers.Padding = new System.Windows.Forms.Padding(3);
@@ -104,6 +108,17 @@
 			this.tabPageTeachers.TabIndex = 4;
 			this.tabPageTeachers.Text = "Teachers";
 			this.tabPageTeachers.UseVisualStyleBackColor = true;
+			// 
+			// dataGridView1
+			// 
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.RowHeadersWidth = 51;
+			this.dataGridView1.RowTemplate.Height = 24;
+			this.dataGridView1.Size = new System.Drawing.Size(786, 415);
+			this.dataGridView1.TabIndex = 0;
 			// 
 			// dataGridViewDirections
 			// 
@@ -123,9 +138,11 @@
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Form1";
-			this.Text = "Accademy_PD_411";
+			this.Text = "Academy_PD_411";
 			this.tabControl1.ResumeLayout(false);
 			this.tabPageDirections.ResumeLayout(false);
+			this.tabPageTeachers.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDirections)).EndInit();
 			this.ResumeLayout(false);
 
@@ -139,6 +156,7 @@
 		private System.Windows.Forms.TabPage tabPageDirections;
 		private System.Windows.Forms.TabPage tabPageDisciplines;
 		private System.Windows.Forms.TabPage tabPageTeachers;
+		private System.Windows.Forms.DataGridView dataGridView1;
 		private System.Windows.Forms.DataGridView dataGridViewDirections;
 	}
 }
