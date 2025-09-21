@@ -61,12 +61,8 @@ namespace ADO_NET
 			SongConnector song_connector =
 				new SongConnector(ConfigurationManager.ConnectionStrings["Songs"].ConnectionString);
 
-			//SongConnector connector = new SongConnector(connectionString);
-
-			// Example:  Insert a new director
 			song_connector.InsertSinger("Crash", "Adams");
 
-			// Example: Get a list of directors
 			DataTable singers = song_connector.SelectSingers();
 
 			foreach (DataRow row in singers.Rows)
@@ -74,10 +70,8 @@ namespace ADO_NET
 				Console.WriteLine($"Singer: {row["first_name"]} {row["last_name"]}");
 			}
 
-			// Example: Insert a movie
 			song_connector.InsertSong("New Heart", "2025-05-30", "Crash Adams");
 
-			// Example: Select movies
 			DataTable songs = song_connector.SelectSongs();
 			foreach (DataRow row in songs.Rows)
 			{
