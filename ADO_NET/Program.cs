@@ -4,12 +4,14 @@
 //#define ALL_IN_MAIN_CLASS
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+//ADO.NET:
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//ADO.NET:
-using System.Data.SqlClient;
-using System.Configuration;
+using MyLibrary;
 
 namespace ADO_NET
 {
@@ -56,15 +58,41 @@ namespace ADO_NET
 			//InsertDirector();
 			//InsertMovie();
 
-			MovieConnector movie_connector =
-				new MovieConnector(ConfigurationManager.ConnectionStrings["Movies"].ConnectionString);
-			movie_connector.SelectDirectors();
-			movie_connector.SelectMovies();
-			//movie_connector.InsertDirector();
-			//movie_connector.InsertMovie();
-			movie_connector.Select("*", "Movies,Directors", "director=director_id;DROP TABLE Actors");
-			//Connector connector =
-				//new Connector(ConfigurationManager.ConnectionStrings["Movies"].ConnectionString);
+			SongConnector song_connector =
+				new SongConnector(ConfigurationManager.ConnectionStrings["Songs"].ConnectionString);
+
+			//SongConnector connector = new SongConnector(connectionString);
+
+			// Example:  Insert a new director
+			song_connector.InsertSinger("Crash", "Adams");
+
+			// Example: Get a list of directors
+			DataTable singers = song_connector.SelectSingers();
+
+			foreach (DataRow row in singers.Rows)
+			{
+				Console.WriteLine($"Singer: {row["first_name"]} {row["last_name"]}");
+			}
+
+			// Example: Insert a movie
+			song_connector.InsertSong("New Heart", "2025-05-30", "Crash Adams");
+
+			// Example: Select movies
+			DataTable songs = song_connector.SelectSongs();
+			foreach (DataRow row in songs.Rows)
+			{
+				Console.WriteLine($"Song: {row["song_name"]}, Singer: {row["first_name"]} {row["last_name"]}");
+			}
+
+			//MovieConnector movie_connector =
+			//	new MovieConnector(ConfigurationManager.ConnectionStrings["Movies"].ConnectionString);
+			//movie_connector.SelectDirectors();
+			//movie_connector.SelectMovies();
+			////movie_connector.InsertDirector();
+			////movie_connector.InsertMovie();
+			//movie_connector.Select("*", "Movies,Directors", "director=director_id;DROP TABLE Actors");
+			////Connector connector =
+			//new Connector(ConfigurationManager.ConnectionStrings["Movies"].ConnectionString);
 			//connector.SelectWithParameters("James", "Cameron");
 
 		}
