@@ -14,16 +14,55 @@ namespace Academy_PD_411
 	public partial class MainForm : Form
 	{
 		string connectionString = "Data Source=LAPTOP-4AUB2J6T\\SQLEXPRESS;Initial Catalog=PD_321;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-		SqlConnection connection; 
+		SqlConnection connection;
+		Dictionary<string, int> d_groupDirection;
 		public MainForm()
 		{
 			InitializeComponent();
 			connection = new SqlConnection(connectionString);
-			LoadDirections();
+			//LoadDirections();
+			//LoadGroups();
+			dataGridViewDirections.DataSource = Select("*", "Directions");
+			dataGridViewGroups.DataSource = Select
+				(
+				"group_id,group_name,direction", "Groups,Directions", "direction=direction_id"
+				);
+			d_groupDirection = LoadDataToComboBox("*", "Directions");
+			comboBoxGroupsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
+			comboBoxGroupsDirection.SelectedIndex = 0;
+		}
+
+		DataTable Select(string fields, string tables, string condition = "")
+		{
+			DataTable table = new DataTable();
+			string cmd = $"SELECT {fields} FROM {tables}";
+			if (!string.IsNullOrWhiteSpace(condition)) cmd += $" WHERE {condition}";
+			cmd += ";";
+
+			SqlCommand command = new SqlCommand(cmd, connection);
+			connection.Open();
+			SqlDataReader reader = command.ExecuteReader();
+			for (int i = 0; i < reader.FieldCount; i++)
+				table.Columns.Add(reader.GetName(i));
+			while(reader.Read())
+			{
+				DataRow row = table.NewRow();
+				for (int i = 0; i < reader.FieldCount; i++) row[i] = reader[i];
+				table.Rows.Add(row);
+			}
+			reader.Close();
+			connection.Close();
+
+			return table;
 		}
 		void LoadDirections()
 		{
-			string cmd = "SELECT * FROM Directions";
+			string cmd = 
+@"SELECT direction_id AS N'ID',direction_name AS N'Direction', COUNT(group_id) AS N'Groups number' 
+FROM Groups
+RIGHT JOIN Directions ON (direction=direction_id)
+GROUP BY direction_id,direction_name
+;";
 			SqlCommand command = new SqlCommand(cmd, connection);
 			connection.Open();
 			SqlDataReader reader = command.ExecuteReader();
@@ -40,6 +79,64 @@ namespace Academy_PD_411
 			reader.Close();
 			connection.Close();
 			dataGridViewDirections.DataSource = table;
+		}
+	
+
+		void LoadGroups()
+		{
+			string cmd = 
+				@"SELECT 
+group_id AS N'ID',group_name AS N'Group',COUNT(stud_id) AS N'Students number',direction_name AS N'Education direction'
+FROM Students 
+RIGHT	JOIN Groups		ON ([group]=group_id)
+		JOIN Directions	ON (direction=direction_id)
+GROUP BY group_id, group_name, direction, direction_name;";
+			SqlCommand command = new SqlCommand(cmd, connection);
+			connection.Open();
+			SqlDataReader reader = command.ExecuteReader();
+			DataTable table = new DataTable();
+			for (int i = 0; i < reader.FieldCount; i++)
+				table.Columns.Add(reader.GetName(i));
+			while (reader.Read())
+			{
+				DataRow row = table.NewRow();
+				for (int i = 0; i < reader.FieldCount; i++)
+					row[i] = reader[i];
+				table.Rows.Add(row);
+			}
+			reader.Close();
+			connection.Close();
+			dataGridViewGroups.DataSource = table;
+		}
+		Dictionary<string,int> LoadDataToComboBox(string fields, string tables)
+		{
+			Dictionary<string, int> dictionary = new Dictionary<string, int>();
+			dictionary.Add("All", 0);
+			string cmd = $"SELECT {fields} FROM {tables}";
+			SqlCommand command = new SqlCommand(cmd, connection);
+			connection.Open();
+			SqlDataReader reader = command.ExecuteReader();
+			while(reader.Read())
+			{
+				//comboBoxGroupsDirection.Items.Add(reader[1]);
+				dictionary.Add(reader[1].ToString(), Convert.ToInt32(reader[0]));
+			}
+			reader.Close();
+			connection.Close();
+			return dictionary;
+		}
+
+		private void comboBoxGroupsDirection_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string condition = $"direction=direction_id";
+			if (comboBoxGroupsDirection.SelectedIndex.ToString() != "All") 
+				condition +=$" AND direction={d_groupDirection[comboBoxGroupsDirection.SelectedItem.ToString()]}";
+			dataGridViewGroups.DataSource = Select
+			(
+				"group_id,group_name,direction", 
+				"Groups,Directions", 
+				condition				
+			);
 		}
 	}
 }
