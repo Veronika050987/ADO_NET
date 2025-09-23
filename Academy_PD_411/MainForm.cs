@@ -57,7 +57,7 @@ namespace Academy_PD_411
 		}
 		void LoadDirections()
 		{
-			string cmd = 
+			string cmd =
 @"SELECT direction_id AS N'ID',direction_name AS N'Direction', COUNT(group_id) AS N'Groups number' 
 FROM Groups
 RIGHT JOIN Directions ON (direction=direction_id)
@@ -108,6 +108,7 @@ GROUP BY group_id, group_name, direction, direction_name;";
 			connection.Close();
 			dataGridViewGroups.DataSource = table;
 		}
+
 		Dictionary<string,int> LoadDataToComboBox(string fields, string tables)
 		{
 			Dictionary<string, int> dictionary = new Dictionary<string, int>();
@@ -136,6 +137,70 @@ GROUP BY group_id, group_name, direction, direction_name;";
 				"group_id,group_name,direction", 
 				"Groups,Directions", 
 				condition				
+			);
+		}
+
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+			LoadGroupsToComboBox();
+		}
+
+		private void LoadGroupsToComboBox()
+		{
+			DataTable groupsTable = Select("group_id, group_name", "Groups");
+			comboBoxGroupsFilter.DataSource = groupsTable;
+			comboBoxGroupsFilter.DisplayMember = "group_name";
+			comboBoxGroupsFilter.ValueMember = "group_id";
+			comboBoxGroupsFilter.SelectedIndex = -1; // чтобы ничего не было выбрано по умолчанию
+		}
+
+		private void comboBoxGroupsFilter_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			FilterStudentsByGroup();
+		}
+
+		private void FilterStudentsByGroup()
+		{
+			if (comboBoxGroupsFilter.SelectedValue == null)
+			{
+				dataGridViewGroups.DataSource = Select
+				(
+					"group_id,group_name,direction,direction_name",
+					"Groups,Directions",
+					"direction=direction_id"
+				);
+				return;
+			}
+
+			int selectedGroupId;
+
+			if (comboBoxGroupsFilter.SelectedValue is int)
+			{
+				selectedGroupId = (int)comboBoxGroupsFilter.SelectedValue;
+			}
+			else
+			{
+				if (int.TryParse(comboBoxGroupsFilter.SelectedValue.ToString(), out selectedGroupId))
+				{
+					// Преобразование успешно
+				}
+				else
+				{
+					// Не удалось преобразовать SelectedValue в int, обработайте ошибку
+					MessageBox.Show("Error: can't receive group ID");
+					return;
+				}
+			}
+
+			// Сформируйте условие для фильтрации
+			string condition = $"direction=direction_id AND group_id = {selectedGroupId}";
+
+			// Выполните запрос с условием фильтрации
+			dataGridViewGroups.DataSource = Select
+			(
+				"group_id,group_name,direction,direction_name",
+				"Groups,Directions",
+				condition
 			);
 		}
 	}

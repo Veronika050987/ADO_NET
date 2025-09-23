@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyLibrary;
+using System.Runtime.InteropServices;
 
 namespace ADO_NET
 {
@@ -90,7 +91,7 @@ namespace ADO_NET
 			//connector.SelectWithParameters("James", "Cameron");
 
 		}
-
+		//[DllImport("..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll")]
 	}
 }
 /*
