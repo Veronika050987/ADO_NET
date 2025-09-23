@@ -58,9 +58,9 @@ namespace Academy_PD_411
 		void LoadDirections()
 		{
 			string cmd =
-@"SELECT direction_id AS N'ID',direction_name AS N'Direction', COUNT(group_id) AS N'Groups number' 
+@"SELECT direction_id AS N'ID',direction_name AS N'Direction', COUNT(group_id) AS N'Groups number'
 FROM Groups
-RIGHT JOIN Directions ON (direction=direction_id)
+RIGHT	JOIN Directions ON (direction=direction_id)
 GROUP BY direction_id,direction_name
 ;";
 			SqlCommand command = new SqlCommand(cmd, connection);
@@ -185,9 +185,7 @@ GROUP BY group_id, group_name, direction, direction_name;";
 					// Преобразование успешно
 				}
 				else
-				{
-					// Не удалось преобразовать SelectedValue в int, обработайте ошибку
-					MessageBox.Show("Error: can't receive group ID");
+				{			
 					return;
 				}
 			}
