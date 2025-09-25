@@ -61,11 +61,14 @@ namespace Academy_PD_411
 
 			tabControl.SelectedIndex = 1;
 
-			for(int i = 0;i < tabControl.TabCount;i++)
-			{
-				(this.Controls.Find($"dataGridView{tabControl.TabPages[i].Name.Remove(0, "tabPage".Length)}", true) [0] as DataGridView).RowsAdded 
-					+= new DataGridViewRowsAddedEventHandler(this.dataGridViewChanged);
-			}
+			LoadTab(tabControl.SelectedIndex);
+
+			comboBoxGroupsDirection.SelectedIndexChanged += comboBoxGroupsDirection_SelectedIndexChanged;
+			//for(int i = 0;i < tabControl.TabCount;i++)
+			//{
+			//	(this.Controls.Find($"dataGridView{tabControl.TabPages[i].Name.Remove(0, "tabPage".Length)}", true) [0] as DataGridView).RowsAdded 
+			//		+= new DataGridViewRowsAddedEventHandler(this.dataGridViewChanged);
+			//}
 		}
 		
 		void LoadTab(int i)
@@ -73,7 +76,13 @@ namespace Academy_PD_411
 			string tableName = tabControl.TabPages[i].Name.Remove(0, "tabPage".Length);
 			DataGridView dataGridView = this.Controls.Find($"dataGridView{tableName}", true)[0] as DataGridView;
 			dataGridView.DataSource = Select(queries[i].Fields, queries[i].Tables, queries[i].Condition);
+			UpdateStatusBar(i, dataGridView.RowCount);
 			//toolStripStatusLabel.Text = $"{statusBarMessages[i]}: {dataGridView.RowCount - 1}";
+		}
+
+		void UpdateStatusBar(int tabIndex, int rowCount)
+		{
+			toolStripStatusLabel.Text = $"{statusBarMessages[tabIndex]}: {rowCount}";
 		}
 		void FillStatusBar(int i)
 		{
@@ -127,12 +136,17 @@ namespace Academy_PD_411
 			string condition = $"direction=direction_id";
 			if (comboBoxGroupsDirection.SelectedIndex.ToString() != "All") 
 				condition +=$" AND direction={d_groupDirection[comboBoxGroupsDirection.SelectedItem.ToString()]}";
-			dataGridViewGroups.DataSource = Select
+			//dataGridViewGroups.DataSource = Select
+			DataTable data = Select
 			(
 				"group_id,group_name,direction", 
 				"Groups,Directions", 
 				condition				
 			);
+			dataGridViewGroups.DataSource = data;
+
+			// Обновляем строку состояния на основе количества строк в dataGridViewGroups.
+			UpdateStatusBar(tabControl.SelectedIndex, dataGridViewGroups.RowCount);
 		}
 		[DllImport("kernel32.dll")]
 		static extern void AllocConsole();
@@ -141,9 +155,9 @@ namespace Academy_PD_411
 		{
 			LoadTab((sender as TabControl).SelectedIndex);
 		}
-		private void dataGridViewChanged(object sender, EventArgs e)
-		{
-			toolStripStatusLabel.Text = $"{statusBarMessages[tabControl.SelectedIndex]}: {(sender as DataGridView).RowCount - 1}";
-		}
+		//private void dataGridViewChanged(object sender, EventArgs e)
+		//{
+		//	toolStripStatusLabel.Text = $"{statusBarMessages[tabControl.SelectedIndex]}: {(sender as DataGridView).RowCount - 1}";
+		//}
 	}
 }
