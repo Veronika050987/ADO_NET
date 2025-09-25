@@ -114,7 +114,7 @@
 			// 
 			this.comboBoxGroupsDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxGroupsDirection.FormattingEnabled = true;
-			this.comboBoxGroupsDirection.Location = new System.Drawing.Point(177, 7);
+			this.comboBoxGroupsDirection.Location = new System.Drawing.Point(482, 1);
 			this.comboBoxGroupsDirection.Name = "comboBoxGroupsDirection";
 			this.comboBoxGroupsDirection.Size = new System.Drawing.Size(194, 24);
 			this.comboBoxGroupsDirection.TabIndex = 2;
@@ -123,7 +123,7 @@
 			// labelGroupsDirection
 			// 
 			this.labelGroupsDirection.AutoSize = true;
-			this.labelGroupsDirection.Location = new System.Drawing.Point(24, 11);
+			this.labelGroupsDirection.Location = new System.Drawing.Point(330, 9);
 			this.labelGroupsDirection.Name = "labelGroupsDirection";
 			this.labelGroupsDirection.Size = new System.Drawing.Size(124, 16);
 			this.labelGroupsDirection.TabIndex = 1;
