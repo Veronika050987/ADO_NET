@@ -53,7 +53,7 @@ namespace Academy_PD_411
             //LoadDirections();
             //LoadGroups();
             Console.WriteLine(this.Name);
-            Console.WriteLine(tabControl.TabCount);
+            //Console.WriteLine(tabControl.TabCount);
             
             d_groupDirection = LoadDataToComboBox("*", "Directions");
             comboBoxGroupsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
