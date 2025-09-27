@@ -29,7 +29,7 @@ namespace Academy_PD_411
 			),
 			new Query
 			(
-				"group_id,group_name,direction_name",
+				"group_id,group_name,learning_days,start_time,direction_name",
 				"Groups,Directions",
 				"direction=direction_id"
 			),
@@ -79,6 +79,7 @@ namespace Academy_PD_411
 			DataGridView dataGridView = this.Controls.Find($"dataGridView{tableName}", true)[0] as DataGridView;
 			dataGridView.DataSource = Select(queries[i].Fields, queries[i].Tables, queries[i].Condition);
 			//toolStripStatusLabel.Text = $"{statusBarMessages[i]}: {dataGridView.RowCount - 1}";
+			if (i == 1) ConvertLearningDays();
 		}
 		void FillStatusBar(int i)
 		{
@@ -107,6 +108,15 @@ namespace Academy_PD_411
 			connection.Close();
 
 			return table;
+		}
+		void ConvertLearningDays()
+		{
+			for(int i=0;i<dataGridViewGroups.RowCount;i++)
+			{
+
+				dataGridViewGroups.Rows[i].Cells["learning_days"].Value =
+					new Week(Convert.ToByte(dataGridViewGroups.Rows[i].Cells["learning_days"].Value));
+			}
 		}
 
 		Dictionary<string, int> LoadDataToDictionary(string fields, string tables, string condition = "")
