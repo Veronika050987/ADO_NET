@@ -30,7 +30,10 @@
 		{
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPageStudents = new System.Windows.Forms.TabPage();
+			this.statusStrip = new System.Windows.Forms.StatusStrip();
+			this.dataGridViewStudents = new System.Windows.Forms.DataGridView();
 			this.tabPageGroups = new System.Windows.Forms.TabPage();
+			this.comboBoxGroupsFilter = new System.Windows.Forms.ComboBox();
 			this.comboBoxGroupsDirection = new System.Windows.Forms.ComboBox();
 			this.labelGroupsDirection = new System.Windows.Forms.Label();
 			this.dataGridViewGroups = new System.Windows.Forms.DataGridView();
@@ -39,17 +42,18 @@
 			this.tabPageDisciplines = new System.Windows.Forms.TabPage();
 			this.tabPageTeachers = new System.Windows.Forms.TabPage();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.dataGridViewStudents = new System.Windows.Forms.DataGridView();
-			this.comboBoxGroupsFilter = new System.Windows.Forms.ComboBox();
+			this.dataGridViewDisciplines = new System.Windows.Forms.DataGridView();
 			this.tabControl1.SuspendLayout();
 			this.tabPageStudents.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).BeginInit();
 			this.tabPageGroups.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewGroups)).BeginInit();
 			this.tabPageDirections.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDirections)).BeginInit();
+			this.tabPageDisciplines.SuspendLayout();
 			this.tabPageTeachers.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDisciplines)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -67,6 +71,7 @@
 			// 
 			// tabPageStudents
 			// 
+			this.tabPageStudents.Controls.Add(this.statusStrip);
 			this.tabPageStudents.Controls.Add(this.dataGridViewStudents);
 			this.tabPageStudents.Location = new System.Drawing.Point(4, 25);
 			this.tabPageStudents.Name = "tabPageStudents";
@@ -75,6 +80,27 @@
 			this.tabPageStudents.TabIndex = 0;
 			this.tabPageStudents.Text = "Students";
 			this.tabPageStudents.UseVisualStyleBackColor = true;
+			// 
+			// statusStrip
+			// 
+			this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+			this.statusStrip.Location = new System.Drawing.Point(3, 396);
+			this.statusStrip.Name = "statusStrip";
+			this.statusStrip.Size = new System.Drawing.Size(786, 22);
+			this.statusStrip.TabIndex = 1;
+			this.statusStrip.Text = "statusStrip1";
+			// 
+			// dataGridViewStudents
+			// 
+			this.dataGridViewStudents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+			this.dataGridViewStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewStudents.Dock = System.Windows.Forms.DockStyle.Top;
+			this.dataGridViewStudents.Location = new System.Drawing.Point(3, 3);
+			this.dataGridViewStudents.Name = "dataGridViewStudents";
+			this.dataGridViewStudents.RowHeadersWidth = 51;
+			this.dataGridViewStudents.RowTemplate.Height = 24;
+			this.dataGridViewStudents.Size = new System.Drawing.Size(786, 397);
+			this.dataGridViewStudents.TabIndex = 0;
 			// 
 			// tabPageGroups
 			// 
@@ -89,6 +115,15 @@
 			this.tabPageGroups.TabIndex = 1;
 			this.tabPageGroups.Text = "Groups";
 			this.tabPageGroups.UseVisualStyleBackColor = true;
+			// 
+			// comboBoxGroupsFilter
+			// 
+			this.comboBoxGroupsFilter.FormattingEnabled = true;
+			this.comboBoxGroupsFilter.Location = new System.Drawing.Point(448, 6);
+			this.comboBoxGroupsFilter.Name = "comboBoxGroupsFilter";
+			this.comboBoxGroupsFilter.Size = new System.Drawing.Size(162, 24);
+			this.comboBoxGroupsFilter.TabIndex = 3;
+			this.comboBoxGroupsFilter.SelectedIndexChanged += new System.EventHandler(this.comboBoxGroupsFilter_SelectedIndexChanged);
 			// 
 			// comboBoxGroupsDirection
 			// 
@@ -147,6 +182,7 @@
 			// 
 			// tabPageDisciplines
 			// 
+			this.tabPageDisciplines.Controls.Add(this.dataGridViewDisciplines);
 			this.tabPageDisciplines.Location = new System.Drawing.Point(4, 25);
 			this.tabPageDisciplines.Name = "tabPageDisciplines";
 			this.tabPageDisciplines.Padding = new System.Windows.Forms.Padding(3);
@@ -177,26 +213,16 @@
 			this.dataGridView1.Size = new System.Drawing.Size(786, 415);
 			this.dataGridView1.TabIndex = 0;
 			// 
-			// dataGridViewStudents
+			// dataGridViewDisciplines
 			// 
-			this.dataGridViewStudents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			this.dataGridViewStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewStudents.Dock = System.Windows.Forms.DockStyle.Top;
-			this.dataGridViewStudents.Location = new System.Drawing.Point(3, 3);
-			this.dataGridViewStudents.Name = "dataGridViewStudents";
-			this.dataGridViewStudents.RowHeadersWidth = 51;
-			this.dataGridViewStudents.RowTemplate.Height = 24;
-			this.dataGridViewStudents.Size = new System.Drawing.Size(786, 397);
-			this.dataGridViewStudents.TabIndex = 0;
-			// 
-			// comboBoxGroupsFilter
-			// 
-			this.comboBoxGroupsFilter.FormattingEnabled = true;
-			this.comboBoxGroupsFilter.Location = new System.Drawing.Point(448, 6);
-			this.comboBoxGroupsFilter.Name = "comboBoxGroupsFilter";
-			this.comboBoxGroupsFilter.Size = new System.Drawing.Size(162, 24);
-			this.comboBoxGroupsFilter.TabIndex = 3;
-			this.comboBoxGroupsFilter.SelectedIndexChanged += new System.EventHandler(this.comboBoxGroupsFilter_SelectedIndexChanged);
+			this.dataGridViewDisciplines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewDisciplines.Dock = System.Windows.Forms.DockStyle.Top;
+			this.dataGridViewDisciplines.Location = new System.Drawing.Point(3, 3);
+			this.dataGridViewDisciplines.Name = "dataGridViewDisciplines";
+			this.dataGridViewDisciplines.RowHeadersWidth = 51;
+			this.dataGridViewDisciplines.RowTemplate.Height = 24;
+			this.dataGridViewDisciplines.Size = new System.Drawing.Size(786, 410);
+			this.dataGridViewDisciplines.TabIndex = 1;
 			// 
 			// MainForm
 			// 
@@ -209,14 +235,17 @@
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.tabControl1.ResumeLayout(false);
 			this.tabPageStudents.ResumeLayout(false);
+			this.tabPageStudents.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).EndInit();
 			this.tabPageGroups.ResumeLayout(false);
 			this.tabPageGroups.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewGroups)).EndInit();
 			this.tabPageDirections.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDirections)).EndInit();
+			this.tabPageDisciplines.ResumeLayout(false);
 			this.tabPageTeachers.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDisciplines)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -236,6 +265,8 @@
 		private System.Windows.Forms.Label labelGroupsDirection;
 		private System.Windows.Forms.DataGridView dataGridViewStudents;
 		private System.Windows.Forms.ComboBox comboBoxGroupsFilter;
+		private System.Windows.Forms.StatusStrip statusStrip;
+		private System.Windows.Forms.DataGridView dataGridViewDisciplines;
 	}
 }
 
