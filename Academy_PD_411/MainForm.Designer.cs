@@ -30,6 +30,11 @@
 		{
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabPageStudents = new System.Windows.Forms.TabPage();
+			this.buttonAddStudent = new System.Windows.Forms.Button();
+			this.comboBoxStudentsDirection = new System.Windows.Forms.ComboBox();
+			this.labelStudentsDirection = new System.Windows.Forms.Label();
+			this.labelStudentsGroup = new System.Windows.Forms.Label();
+			this.comboBoxStudentsGroup = new System.Windows.Forms.ComboBox();
 			this.dataGridViewStudents = new System.Windows.Forms.DataGridView();
 			this.tabPageGroups = new System.Windows.Forms.TabPage();
 			this.comboBoxGroupsDirection = new System.Windows.Forms.ComboBox();
@@ -74,6 +79,11 @@
 			// 
 			// tabPageStudents
 			// 
+			this.tabPageStudents.Controls.Add(this.buttonAddStudent);
+			this.tabPageStudents.Controls.Add(this.comboBoxStudentsDirection);
+			this.tabPageStudents.Controls.Add(this.labelStudentsDirection);
+			this.tabPageStudents.Controls.Add(this.labelStudentsGroup);
+			this.tabPageStudents.Controls.Add(this.comboBoxStudentsGroup);
 			this.tabPageStudents.Controls.Add(this.dataGridViewStudents);
 			this.tabPageStudents.Location = new System.Drawing.Point(4, 25);
 			this.tabPageStudents.Name = "tabPageStudents";
@@ -83,6 +93,54 @@
 			this.tabPageStudents.Text = "Students";
 			this.tabPageStudents.UseVisualStyleBackColor = true;
 			// 
+			// buttonAddStudent
+			// 
+			this.buttonAddStudent.BackColor = System.Drawing.Color.Fuchsia;
+			this.buttonAddStudent.Location = new System.Drawing.Point(687, 8);
+			this.buttonAddStudent.Name = "buttonAddStudent";
+			this.buttonAddStudent.Size = new System.Drawing.Size(75, 23);
+			this.buttonAddStudent.TabIndex = 5;
+			this.buttonAddStudent.Text = "Add";
+			this.buttonAddStudent.UseVisualStyleBackColor = false;
+			// 
+			// comboBoxStudentsDirection
+			// 
+			this.comboBoxStudentsDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxStudentsDirection.FormattingEnabled = true;
+			this.comboBoxStudentsDirection.Location = new System.Drawing.Point(401, 7);
+			this.comboBoxStudentsDirection.Name = "comboBoxStudentsDirection";
+			this.comboBoxStudentsDirection.Size = new System.Drawing.Size(238, 24);
+			this.comboBoxStudentsDirection.TabIndex = 4;
+			this.comboBoxStudentsDirection.SelectedIndexChanged += new System.EventHandler(this.comboBoxStudentsDirection_SelectedIndexChanged);
+			// 
+			// labelStudentsDirection
+			// 
+			this.labelStudentsDirection.AutoSize = true;
+			this.labelStudentsDirection.Location = new System.Drawing.Point(271, 10);
+			this.labelStudentsDirection.Name = "labelStudentsDirection";
+			this.labelStudentsDirection.Size = new System.Drawing.Size(124, 16);
+			this.labelStudentsDirection.TabIndex = 3;
+			this.labelStudentsDirection.Text = "Education direction:";
+			// 
+			// labelStudentsGroup
+			// 
+			this.labelStudentsGroup.AutoSize = true;
+			this.labelStudentsGroup.Location = new System.Drawing.Point(8, 10);
+			this.labelStudentsGroup.Name = "labelStudentsGroup";
+			this.labelStudentsGroup.Size = new System.Drawing.Size(47, 16);
+			this.labelStudentsGroup.TabIndex = 2;
+			this.labelStudentsGroup.Text = "Group:";
+			// 
+			// comboBoxStudentsGroup
+			// 
+			this.comboBoxStudentsGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxStudentsGroup.FormattingEnabled = true;
+			this.comboBoxStudentsGroup.Location = new System.Drawing.Point(89, 7);
+			this.comboBoxStudentsGroup.Name = "comboBoxStudentsGroup";
+			this.comboBoxStudentsGroup.Size = new System.Drawing.Size(142, 24);
+			this.comboBoxStudentsGroup.TabIndex = 1;
+			this.comboBoxStudentsGroup.SelectedIndexChanged += new System.EventHandler(this.comboBoxStudentsGroup_SelectedIndexChanged);
+			// 
 			// dataGridViewStudents
 			// 
 			this.dataGridViewStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -90,11 +148,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridViewStudents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			this.dataGridViewStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewStudents.Location = new System.Drawing.Point(0, 35);
+			this.dataGridViewStudents.Location = new System.Drawing.Point(0, 37);
 			this.dataGridViewStudents.Name = "dataGridViewStudents";
 			this.dataGridViewStudents.RowHeadersWidth = 51;
 			this.dataGridViewStudents.RowTemplate.Height = 24;
-			this.dataGridViewStudents.Size = new System.Drawing.Size(786, 383);
+			this.dataGridViewStudents.Size = new System.Drawing.Size(786, 381);
 			this.dataGridViewStudents.TabIndex = 0;
 			// 
 			// tabPageGroups
@@ -114,7 +172,7 @@
 			// 
 			this.comboBoxGroupsDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxGroupsDirection.FormattingEnabled = true;
-			this.comboBoxGroupsDirection.Location = new System.Drawing.Point(482, 1);
+			this.comboBoxGroupsDirection.Location = new System.Drawing.Point(479, 6);
 			this.comboBoxGroupsDirection.Name = "comboBoxGroupsDirection";
 			this.comboBoxGroupsDirection.Size = new System.Drawing.Size(194, 24);
 			this.comboBoxGroupsDirection.TabIndex = 2;
@@ -241,6 +299,7 @@
 			this.Text = "Academy_PD_411";
 			this.tabControl.ResumeLayout(false);
 			this.tabPageStudents.ResumeLayout(false);
+			this.tabPageStudents.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).EndInit();
 			this.tabPageGroups.ResumeLayout(false);
 			this.tabPageGroups.PerformLayout();
@@ -275,6 +334,11 @@
 		private System.Windows.Forms.DataGridView dataGridViewDisciplines;
 		private System.Windows.Forms.StatusStrip statusStrip;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+		private System.Windows.Forms.Label labelStudentsGroup;
+		private System.Windows.Forms.ComboBox comboBoxStudentsGroup;
+		private System.Windows.Forms.ComboBox comboBoxStudentsDirection;
+		private System.Windows.Forms.Label labelStudentsDirection;
+		private System.Windows.Forms.Button buttonAddStudent;
 	}
 }
 
