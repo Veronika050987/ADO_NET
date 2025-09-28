@@ -51,16 +51,21 @@ namespace Academy_PD_411
 			InitializeComponent();
 			AllocConsole();
 			connection = new SqlConnection(connectionString);
-			//LoadDirections();
-			//LoadGroups();
+			
 			Console.WriteLine(this.Name);
 			Console.WriteLine(tabControl.TabCount);
 
 			d_groupDirection = LoadDataToDictionary("*", "Directions");
 			d_studentsGroup = LoadDataToDictionary("*", "Groups");
-			comboBoxGroupsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
-			comboBoxStudentsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
-			comboBoxStudentsGroup.Items.AddRange(d_studentsGroup.Keys.ToArray());
+
+			FillComboBox(comboBoxGroupsDirection, d_groupDirection);
+			FillComboBox(comboBoxStudentsDirection, d_groupDirection);
+
+			FillComboBox(comboBoxStudentsGroup, d_studentsGroup);
+
+			//comboBoxGroupsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
+			//comboBoxStudentsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
+			//comboBoxStudentsGroup.Items.AddRange(d_studentsGroup.Keys.ToArray());
 			comboBoxStudentsDirection.SelectedIndex = comboBoxGroupsDirection.SelectedIndex = 0;
 			comboBoxStudentsGroup.SelectedIndex = 0;
 
@@ -73,6 +78,15 @@ namespace Academy_PD_411
 			}
 
 			dataGridViewGroups.CellDoubleClick += dataGridViewGroups_CellDoubleClick;
+		}
+
+		private void FillComboBox(ComboBox comboBox, Dictionary<string, int> data)
+		{
+			comboBox.Items.Clear();
+			foreach (string key in data.Keys)
+			{
+				comboBox.Items.Add(key);
+			}
 		}
 
 		private void dataGridViewGroups_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -96,7 +110,6 @@ namespace Academy_PD_411
 			string tableName = tabControl.TabPages[i].Name.Remove(0, "tabPage".Length);
 			DataGridView dataGridView = this.Controls.Find($"dataGridView{tableName}", true)[0] as DataGridView;
 			dataGridView.DataSource = Select(queries[i].Fields, queries[i].Tables, queries[i].Condition);
-			//toolStripStatusLabel.Text = $"{statusBarMessages[i]}: {dataGridView.RowCount - 1}";
 			
 			if (i == 1) ConvertLearningDays();
 		}
@@ -229,11 +242,16 @@ namespace Academy_PD_411
 
 		private void GroupForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			// Refresh the data grid
-			LoadTab(1); // Assuming "Groups" tab is at index 1
-			d_studentsGroup = LoadDataToDictionary("*", "Groups");
-			comboBoxStudentsGroup.Items.Clear();
-			comboBoxStudentsGroup.Items.AddRange(d_studentsGroup.Keys.ToArray());
+			if (e.CloseReason == CloseReason.UserClosing)
+			{
+				if ((sender as GroupForm).DialogResult == DialogResult.OK)
+				{
+					// Обновляем DataGridView и ComboBox, только если данные были сохранены
+					LoadTab(1);  // Предполагаем, что tabControl[1] - это Groups
+					d_studentsGroup = LoadDataToDictionary("*", "Groups");
+					FillComboBox(comboBoxStudentsGroup, d_studentsGroup);
+				}
+			}
 
 		}
 	}
