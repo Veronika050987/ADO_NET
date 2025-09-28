@@ -30,7 +30,7 @@
 		{
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabPageStudents = new System.Windows.Forms.TabPage();
-			this.buttonAddStudent = new System.Windows.Forms.Button();
+			this.buttonAddStudents = new System.Windows.Forms.Button();
 			this.comboBoxStudentsDirection = new System.Windows.Forms.ComboBox();
 			this.labelStudentsDirection = new System.Windows.Forms.Label();
 			this.labelStudentsGroup = new System.Windows.Forms.Label();
@@ -48,6 +48,7 @@
 			this.dataGridViewTeachers = new System.Windows.Forms.DataGridView();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.buttonAddGroup = new System.Windows.Forms.Button();
 			this.tabControl.SuspendLayout();
 			this.tabPageStudents.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).BeginInit();
@@ -79,7 +80,7 @@
 			// 
 			// tabPageStudents
 			// 
-			this.tabPageStudents.Controls.Add(this.buttonAddStudent);
+			this.tabPageStudents.Controls.Add(this.buttonAddStudents);
 			this.tabPageStudents.Controls.Add(this.comboBoxStudentsDirection);
 			this.tabPageStudents.Controls.Add(this.labelStudentsDirection);
 			this.tabPageStudents.Controls.Add(this.labelStudentsGroup);
@@ -93,15 +94,15 @@
 			this.tabPageStudents.Text = "Students";
 			this.tabPageStudents.UseVisualStyleBackColor = true;
 			// 
-			// buttonAddStudent
+			// buttonAddStudents
 			// 
-			this.buttonAddStudent.BackColor = System.Drawing.Color.Fuchsia;
-			this.buttonAddStudent.Location = new System.Drawing.Point(687, 8);
-			this.buttonAddStudent.Name = "buttonAddStudent";
-			this.buttonAddStudent.Size = new System.Drawing.Size(75, 23);
-			this.buttonAddStudent.TabIndex = 5;
-			this.buttonAddStudent.Text = "Add";
-			this.buttonAddStudent.UseVisualStyleBackColor = false;
+			this.buttonAddStudents.BackColor = System.Drawing.Color.Fuchsia;
+			this.buttonAddStudents.Location = new System.Drawing.Point(687, 8);
+			this.buttonAddStudents.Name = "buttonAddStudents";
+			this.buttonAddStudents.Size = new System.Drawing.Size(75, 23);
+			this.buttonAddStudents.TabIndex = 5;
+			this.buttonAddStudents.Text = "Add";
+			this.buttonAddStudents.UseVisualStyleBackColor = false;
 			// 
 			// comboBoxStudentsDirection
 			// 
@@ -157,6 +158,7 @@
 			// 
 			// tabPageGroups
 			// 
+			this.tabPageGroups.Controls.Add(this.buttonAddGroup);
 			this.tabPageGroups.Controls.Add(this.comboBoxGroupsDirection);
 			this.tabPageGroups.Controls.Add(this.labelGroupsDirection);
 			this.tabPageGroups.Controls.Add(this.dataGridViewGroups);
@@ -200,6 +202,7 @@
 			this.dataGridViewGroups.RowTemplate.Height = 24;
 			this.dataGridViewGroups.Size = new System.Drawing.Size(789, 381);
 			this.dataGridViewGroups.TabIndex = 0;
+			this.dataGridViewGroups.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGroups_CellDoubleClick);
 			// 
 			// tabPageDirections
 			// 
@@ -288,6 +291,17 @@
 			this.toolStripStatusLabel.Size = new System.Drawing.Size(143, 20);
 			this.toolStripStatusLabel.Text = "toolStripStatusLabel";
 			// 
+			// buttonAddGroup
+			// 
+			this.buttonAddGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+			this.buttonAddGroup.Location = new System.Drawing.Point(709, 8);
+			this.buttonAddGroup.Name = "buttonAddGroup";
+			this.buttonAddGroup.Size = new System.Drawing.Size(75, 23);
+			this.buttonAddGroup.TabIndex = 3;
+			this.buttonAddGroup.Text = "Add";
+			this.buttonAddGroup.UseVisualStyleBackColor = false;
+			this.buttonAddGroup.Click += new System.EventHandler(this.buttonAddGroup_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -338,7 +352,8 @@
 		private System.Windows.Forms.ComboBox comboBoxStudentsGroup;
 		private System.Windows.Forms.ComboBox comboBoxStudentsDirection;
 		private System.Windows.Forms.Label labelStudentsDirection;
-		private System.Windows.Forms.Button buttonAddStudent;
+		private System.Windows.Forms.Button buttonAddStudents;
+		private System.Windows.Forms.Button buttonAddGroup;
 	}
 }
 

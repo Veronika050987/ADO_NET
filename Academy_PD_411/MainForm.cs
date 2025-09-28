@@ -71,6 +71,24 @@ namespace Academy_PD_411
 				(this.Controls.Find($"dataGridView{tabControl.TabPages[i].Name.Remove(0, "tabPage".Length)}", true)[0] as DataGridView).RowsAdded
 					+= new DataGridViewRowsAddedEventHandler(this.dataGridViewChanged);
 			}
+
+			dataGridViewGroups.CellDoubleClick += dataGridViewGroups_CellDoubleClick;
+		}
+
+		private void dataGridViewGroups_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex >= 0)
+			{
+				// Get the selected row
+				DataGridViewRow row = dataGridViewGroups.Rows[e.RowIndex];
+
+				// Extract group ID from the selected row (assuming group ID is in the first column)
+				int groupId = Convert.ToInt32(row.Cells["group_id"].Value);
+
+				// Open the group form for editing
+				OpenGroupForm(groupId);
+			}
+
 		}
 
 		void LoadTab(int i)
@@ -79,6 +97,7 @@ namespace Academy_PD_411
 			DataGridView dataGridView = this.Controls.Find($"dataGridView{tableName}", true)[0] as DataGridView;
 			dataGridView.DataSource = Select(queries[i].Fields, queries[i].Tables, queries[i].Condition);
 			//toolStripStatusLabel.Text = $"{statusBarMessages[i]}: {dataGridView.RowCount - 1}";
+			
 			if (i == 1) ConvertLearningDays();
 		}
 		void FillStatusBar(int i)
@@ -194,6 +213,28 @@ namespace Academy_PD_411
 					+ (string.IsNullOrWhiteSpace(condition_group) ? "" : $" AND {condition_group}")
 					+ (string.IsNullOrWhiteSpace(condition_direction) ? "" :$" AND {condition_direction}")
 				);
+		}	
+
+		private void buttonAddGroup_Click(object sender, EventArgs e)
+		{
+			OpenGroupForm(null);
+		}
+
+		private void OpenGroupForm(int? groupId)
+		{
+			GroupForm groupForm = new GroupForm(connectionString, d_groupDirection, groupId);
+			groupForm.FormClosed += GroupForm_FormClosed;  // Subscribe to the FormClosed event
+			groupForm.ShowDialog();
+		}
+
+		private void GroupForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			// Refresh the data grid
+			LoadTab(1); // Assuming "Groups" tab is at index 1
+			d_studentsGroup = LoadDataToDictionary("*", "Groups");
+			comboBoxStudentsGroup.Items.Clear();
+			comboBoxStudentsGroup.Items.AddRange(d_studentsGroup.Keys.ToArray());
+
 		}
 	}
 }
