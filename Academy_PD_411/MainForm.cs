@@ -113,7 +113,6 @@ namespace Academy_PD_411
 		{
 			for(int i=0;i<dataGridViewGroups.RowCount;i++)
 			{
-
 				dataGridViewGroups.Rows[i].Cells["learning_days"].Value =
 					new Week(Convert.ToByte(dataGridViewGroups.Rows[i].Cells["learning_days"].Value));
 			}
