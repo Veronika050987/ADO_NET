@@ -18,6 +18,7 @@ namespace Academy_PD_411
 		SqlConnection connection;
 		Dictionary<string, int> d_groupDirection;
 		Dictionary<string, int> d_studentsGroup;
+		Dictionary<string, int> d_disciplinesDirection;
 
 		Query[] queries = new Query[]
 		{
@@ -57,11 +58,15 @@ namespace Academy_PD_411
 
 			d_groupDirection = LoadDataToDictionary("*", "Directions");
 			d_studentsGroup = LoadDataToDictionary("*", "Groups");
+			d_disciplinesDirection = LoadDataToDictionary("*", "Disciplines");
 
 			FillComboBox(comboBoxGroupsDirection, d_groupDirection);
 			FillComboBox(comboBoxStudentsDirection, d_groupDirection);
 
 			FillComboBox(comboBoxStudentsGroup, d_studentsGroup);
+
+			FillComboBox(comboBoxDirections, d_groupDirection);
+			FillComboBox(comboBoxDisciplines, d_disciplinesDirection);
 
 			//comboBoxGroupsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
 			//comboBoxStudentsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
@@ -253,6 +258,38 @@ namespace Academy_PD_411
 				}
 			}
 
+		}
+
+		private void comboBoxDirections_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string condition = comboBoxDirections.SelectedItem.ToString() == "All" ? "" :
+			$" direction={d_groupDirection[(sender as ComboBox).SelectedItem.ToString()]}";
+			comboBoxDirections.Items.Clear();
+			comboBoxDirections.Items.AddRange(LoadDataToDictionary("*", "Disciplines", condition).Keys.ToArray());
+			dataGridViewDisciplines.DataSource = Select
+				(
+					queries[0].Fields,
+					queries[0].Tables,
+					queries[0].Condition + (string.IsNullOrEmpty(condition) ? "" : $" AND {condition}")
+				);
+		}
+
+		private void comboBoxDisciplines_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string condition_discipline =
+			comboBoxDisciplines.SelectedItem.ToString() == "All" ? "" :
+			$" discipline={d_disciplinesDirection[comboBoxDisciplines.SelectedItem.ToString()]}";
+			string condition_direction = comboBoxDirections.SelectedItem.ToString() == "All" ? "" :
+				$" direction={d_groupDirection[comboBoxDirections.SelectedItem.ToString()]}";
+
+			dataGridViewDisciplines.DataSource = Select
+				(
+					queries[0].Fields,
+					queries[0].Tables,
+					queries[0].Condition
+					+ (string.IsNullOrWhiteSpace(condition_discipline) ? "" : $" AND {condition_discipline}")
+					+ (string.IsNullOrWhiteSpace(condition_direction) ? "" : $" AND {condition_direction}")
+				);
 		}
 	}
 }

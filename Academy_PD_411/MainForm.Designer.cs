@@ -37,6 +37,7 @@
 			this.comboBoxStudentsGroup = new System.Windows.Forms.ComboBox();
 			this.dataGridViewStudents = new System.Windows.Forms.DataGridView();
 			this.tabPageGroups = new System.Windows.Forms.TabPage();
+			this.buttonAddGroup = new System.Windows.Forms.Button();
 			this.comboBoxGroupsDirection = new System.Windows.Forms.ComboBox();
 			this.labelGroupsDirection = new System.Windows.Forms.Label();
 			this.dataGridViewGroups = new System.Windows.Forms.DataGridView();
@@ -48,7 +49,10 @@
 			this.dataGridViewTeachers = new System.Windows.Forms.DataGridView();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.buttonAddGroup = new System.Windows.Forms.Button();
+			this.labelDirections = new System.Windows.Forms.Label();
+			this.comboBoxDirections = new System.Windows.Forms.ComboBox();
+			this.labelDisciplines = new System.Windows.Forms.Label();
+			this.comboBoxDisciplines = new System.Windows.Forms.ComboBox();
 			this.tabControl.SuspendLayout();
 			this.tabPageStudents.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).BeginInit();
@@ -170,6 +174,17 @@
 			this.tabPageGroups.Text = "Groups";
 			this.tabPageGroups.UseVisualStyleBackColor = true;
 			// 
+			// buttonAddGroup
+			// 
+			this.buttonAddGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+			this.buttonAddGroup.Location = new System.Drawing.Point(709, 8);
+			this.buttonAddGroup.Name = "buttonAddGroup";
+			this.buttonAddGroup.Size = new System.Drawing.Size(75, 23);
+			this.buttonAddGroup.TabIndex = 3;
+			this.buttonAddGroup.Text = "Add";
+			this.buttonAddGroup.UseVisualStyleBackColor = false;
+			this.buttonAddGroup.Click += new System.EventHandler(this.buttonAddGroup_Click);
+			// 
 			// comboBoxGroupsDirection
 			// 
 			this.comboBoxGroupsDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -228,6 +243,10 @@
 			// 
 			// tabPageDisciplines
 			// 
+			this.tabPageDisciplines.Controls.Add(this.comboBoxDisciplines);
+			this.tabPageDisciplines.Controls.Add(this.labelDisciplines);
+			this.tabPageDisciplines.Controls.Add(this.comboBoxDirections);
+			this.tabPageDisciplines.Controls.Add(this.labelDirections);
 			this.tabPageDisciplines.Controls.Add(this.dataGridViewDisciplines);
 			this.tabPageDisciplines.Location = new System.Drawing.Point(4, 25);
 			this.tabPageDisciplines.Name = "tabPageDisciplines";
@@ -243,11 +262,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridViewDisciplines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewDisciplines.Location = new System.Drawing.Point(0, 32);
+			this.dataGridViewDisciplines.Location = new System.Drawing.Point(0, 44);
 			this.dataGridViewDisciplines.Name = "dataGridViewDisciplines";
 			this.dataGridViewDisciplines.RowHeadersWidth = 51;
 			this.dataGridViewDisciplines.RowTemplate.Height = 24;
-			this.dataGridViewDisciplines.Size = new System.Drawing.Size(792, 393);
+			this.dataGridViewDisciplines.Size = new System.Drawing.Size(792, 381);
 			this.dataGridViewDisciplines.TabIndex = 0;
 			// 
 			// tabPageTeachers
@@ -291,16 +310,42 @@
 			this.toolStripStatusLabel.Size = new System.Drawing.Size(143, 20);
 			this.toolStripStatusLabel.Text = "toolStripStatusLabel";
 			// 
-			// buttonAddGroup
+			// labelDirections
 			// 
-			this.buttonAddGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-			this.buttonAddGroup.Location = new System.Drawing.Point(709, 8);
-			this.buttonAddGroup.Name = "buttonAddGroup";
-			this.buttonAddGroup.Size = new System.Drawing.Size(75, 23);
-			this.buttonAddGroup.TabIndex = 3;
-			this.buttonAddGroup.Text = "Add";
-			this.buttonAddGroup.UseVisualStyleBackColor = false;
-			this.buttonAddGroup.Click += new System.EventHandler(this.buttonAddGroup_Click);
+			this.labelDirections.AutoSize = true;
+			this.labelDirections.Location = new System.Drawing.Point(8, 18);
+			this.labelDirections.Name = "labelDirections";
+			this.labelDirections.Size = new System.Drawing.Size(70, 16);
+			this.labelDirections.TabIndex = 1;
+			this.labelDirections.Text = "Directions:";
+			// 
+			// comboBoxDirections
+			// 
+			this.comboBoxDirections.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxDirections.FormattingEnabled = true;
+			this.comboBoxDirections.Location = new System.Drawing.Point(84, 10);
+			this.comboBoxDirections.Name = "comboBoxDirections";
+			this.comboBoxDirections.Size = new System.Drawing.Size(219, 24);
+			this.comboBoxDirections.TabIndex = 2;
+			this.comboBoxDirections.SelectedIndexChanged += new System.EventHandler(this.comboBoxDirections_SelectedIndexChanged);
+			// 
+			// labelDisciplines
+			// 
+			this.labelDisciplines.AutoSize = true;
+			this.labelDisciplines.Location = new System.Drawing.Point(354, 17);
+			this.labelDisciplines.Name = "labelDisciplines";
+			this.labelDisciplines.Size = new System.Drawing.Size(76, 16);
+			this.labelDisciplines.TabIndex = 3;
+			this.labelDisciplines.Text = "Disciplines:";
+			// 
+			// comboBoxDisciplines
+			// 
+			this.comboBoxDisciplines.FormattingEnabled = true;
+			this.comboBoxDisciplines.Location = new System.Drawing.Point(447, 9);
+			this.comboBoxDisciplines.Name = "comboBoxDisciplines";
+			this.comboBoxDisciplines.Size = new System.Drawing.Size(292, 24);
+			this.comboBoxDisciplines.TabIndex = 4;
+			this.comboBoxDisciplines.SelectedIndexChanged += new System.EventHandler(this.comboBoxDisciplines_SelectedIndexChanged);
 			// 
 			// MainForm
 			// 
@@ -321,6 +366,7 @@
 			this.tabPageDirections.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDirections)).EndInit();
 			this.tabPageDisciplines.ResumeLayout(false);
+			this.tabPageDisciplines.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDisciplines)).EndInit();
 			this.tabPageTeachers.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeachers)).EndInit();
@@ -354,6 +400,10 @@
 		private System.Windows.Forms.Label labelStudentsDirection;
 		private System.Windows.Forms.Button buttonAddStudents;
 		private System.Windows.Forms.Button buttonAddGroup;
+		private System.Windows.Forms.ComboBox comboBoxDisciplines;
+		private System.Windows.Forms.Label labelDisciplines;
+		private System.Windows.Forms.ComboBox comboBoxDirections;
+		private System.Windows.Forms.Label labelDirections;
 	}
 }
 
