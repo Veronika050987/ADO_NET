@@ -24,7 +24,23 @@ namespace DataSet
 			InitializeComponent();
 			connectionString = ConfigurationManager.ConnectionStrings["PD_321"].ConnectionString;
 			connection = new SqlConnection(connectionString);
-			
+
+			LoadGroupsRelatedData();
+
+			comboBoxGroups.DataSource = GroupsRelatedData.Tables["Groups"];
+			comboBoxGroups.DisplayMember = "group_name";
+			comboBoxGroups.ValueMember = "group_id";
+			comboBoxGroups.SelectedIndex = -1;
+
+			comboBoxDirections.DataSource = GroupsRelatedData.Tables["Directions"];
+			comboBoxDirections.DisplayMember = "direction_name";
+			comboBoxDirections.ValueMember = "direction_id";
+			comboBoxDirections.AccessibleDefaultActionDescription = "All directions";
+			comboBoxDirections.SelectedIndex = -1;
+		}
+
+		void LoadGroupsRelatedData()
+		{
 			//1) DataSet creation
 			GroupsRelatedData = new System.Data.DataSet(nameof(GroupsRelatedData));
 
@@ -79,14 +95,7 @@ namespace DataSet
 				Console.WriteLine($"{row[dstDirections_col_direction_id]}\t{row[dstDirections_col_direction_name]}");
 			}
 			Console.WriteLine("\n==================\n");
-			//foreach (DataRow row in GroupsRelatedData.Tables[dsTable_Directions].ChildRelations)
-			//{
-			//	for(int i=0; i<row.GetChildRows(dsRelation_Groups_Directions).Length;i++)
-			//	{
-			//		Console.Write($"{row[i]}\t");
-			//	}
-			//	Console.WriteLine();
-			//}
+	
 			DataRow[] RPO = GroupsRelatedData.Tables[dsTable_Directions].Rows[0].GetChildRows(dsRelation_Groups_Directions);
 			for (int i=0; i < RPO.Length;i++)
 			{
@@ -101,5 +110,23 @@ namespace DataSet
 		public static extern bool AllocConsole();
 		[DllImport("kernel32.dll")]
 		public static extern bool FreeConsole();
+
+		private void comboBoxDirections_SelectedIndexChanged_1(object sender, EventArgs e)
+		{
+			object selectedValue = (sender as ComboBox).SelectedValue;
+			if (selectedValue?.ToString() != selectedValue?.GetType().ToString())
+			{
+				string filter = $"direction = {selectedValue.ToString()}";
+				Console.WriteLine(filter);
+				GroupsRelatedData.Tables["Groups"].DefaultView.RowFilter = filter;
+			}
+		}
+
+		private void buttonReset_Click(object sender, EventArgs e)
+		{
+			GroupsRelatedData.Tables["Groups"].DefaultView.RowFilter = "";
+			comboBoxDirections.SelectedIndex = -1;
+			comboBoxGroups.SelectedIndex = -1;
+		}
 	}
 }
