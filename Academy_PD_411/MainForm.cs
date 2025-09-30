@@ -262,8 +262,9 @@ namespace Academy_PD_411
 
 		private void comboBoxDirections_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			string condition = comboBoxDirections.SelectedItem.ToString() == "All" ? "" :
-			$" direction={d_groupDirection[(sender as ComboBox).SelectedItem.ToString()]}";
+			string condition = $"direction=direction_id";
+			if (comboBoxDirections.SelectedIndex.ToString() != "All")
+				condition += $" AND direction={d_groupDirection[(sender as ComboBox).SelectedItem.ToString()]}";
 			comboBoxDirections.Items.Clear();
 			comboBoxDirections.Items.AddRange(LoadDataToDictionary("*", "Disciplines", condition).Keys.ToArray());
 			dataGridViewDisciplines.DataSource = Select
