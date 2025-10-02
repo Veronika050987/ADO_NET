@@ -86,13 +86,13 @@ namespace Data_Set
 			// Добавляем пункт "Все направления"
 			DataRow allDirectionsRow = GroupsRelatedData.Tables[dsTable_Directions].NewRow();
 			allDirectionsRow[dstDirections_col_direction_id] = -1; // Используем -1 для идентификатора
-			allDirectionsRow[dstDirections_col_direction_name] = "Все направления";
+			allDirectionsRow[dstDirections_col_direction_name] = "All directions";
 			GroupsRelatedData.Tables[dsTable_Directions].Rows.InsertAt(allDirectionsRow, 0);
 
 			// Добавляем пункт "Все группы"
 			DataRow allGroupsRow = GroupsRelatedData.Tables[dsTable_Groups].NewRow();
 			allGroupsRow[dstGroups_col_group_id] = -1; // Используем -1 для идентификатора
-			allGroupsRow[dstGroups_col_group_name] = "Все группы";
+			allGroupsRow[dstGroups_col_group_name] = "All groups";
 			allGroupsRow[dstGroups_col_direction] = -1; // Указываем -1 для связи с "Все направления" (если нужно)
 			allGroupsRow[dstGroups_col_learning_days] = "";
 			allGroupsRow[dstGroups_col_start_time] = "";
