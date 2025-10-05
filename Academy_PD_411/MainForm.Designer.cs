@@ -96,7 +96,7 @@
 			// buttonAddStudent
 			// 
 			this.buttonAddStudent.BackColor = System.Drawing.Color.Fuchsia;
-			this.buttonAddStudent.Location = new System.Drawing.Point(687, 8);
+			this.buttonAddStudent.Location = new System.Drawing.Point(709, 8);
 			this.buttonAddStudent.Name = "buttonAddStudent";
 			this.buttonAddStudent.Size = new System.Drawing.Size(75, 23);
 			this.buttonAddStudent.TabIndex = 5;
@@ -108,7 +108,7 @@
 			// 
 			this.comboBoxStudentsDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxStudentsDirection.FormattingEnabled = true;
-			this.comboBoxStudentsDirection.Location = new System.Drawing.Point(401, 7);
+			this.comboBoxStudentsDirection.Location = new System.Drawing.Point(465, 7);
 			this.comboBoxStudentsDirection.Name = "comboBoxStudentsDirection";
 			this.comboBoxStudentsDirection.Size = new System.Drawing.Size(238, 24);
 			this.comboBoxStudentsDirection.TabIndex = 4;
@@ -117,7 +117,7 @@
 			// labelStudentsDirection
 			// 
 			this.labelStudentsDirection.AutoSize = true;
-			this.labelStudentsDirection.Location = new System.Drawing.Point(271, 10);
+			this.labelStudentsDirection.Location = new System.Drawing.Point(335, 11);
 			this.labelStudentsDirection.Name = "labelStudentsDirection";
 			this.labelStudentsDirection.Size = new System.Drawing.Size(124, 16);
 			this.labelStudentsDirection.TabIndex = 3;
@@ -126,7 +126,7 @@
 			// labelStudentsGroup
 			// 
 			this.labelStudentsGroup.AutoSize = true;
-			this.labelStudentsGroup.Location = new System.Drawing.Point(8, 10);
+			this.labelStudentsGroup.Location = new System.Drawing.Point(122, 11);
 			this.labelStudentsGroup.Name = "labelStudentsGroup";
 			this.labelStudentsGroup.Size = new System.Drawing.Size(47, 16);
 			this.labelStudentsGroup.TabIndex = 2;
@@ -136,7 +136,7 @@
 			// 
 			this.comboBoxStudentsGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxStudentsGroup.FormattingEnabled = true;
-			this.comboBoxStudentsGroup.Location = new System.Drawing.Point(89, 7);
+			this.comboBoxStudentsGroup.Location = new System.Drawing.Point(187, 7);
 			this.comboBoxStudentsGroup.Name = "comboBoxStudentsGroup";
 			this.comboBoxStudentsGroup.Size = new System.Drawing.Size(142, 24);
 			this.comboBoxStudentsGroup.TabIndex = 1;
@@ -149,11 +149,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridViewStudents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			this.dataGridViewStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewStudents.Location = new System.Drawing.Point(0, 37);
+			this.dataGridViewStudents.Location = new System.Drawing.Point(0, 50);
 			this.dataGridViewStudents.Name = "dataGridViewStudents";
 			this.dataGridViewStudents.RowHeadersWidth = 51;
 			this.dataGridViewStudents.RowTemplate.Height = 24;
-			this.dataGridViewStudents.Size = new System.Drawing.Size(786, 381);
+			this.dataGridViewStudents.Size = new System.Drawing.Size(786, 368);
 			this.dataGridViewStudents.TabIndex = 0;
 			// 
 			// tabPageGroups
@@ -195,11 +195,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridViewGroups.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.dataGridViewGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewGroups.Location = new System.Drawing.Point(0, 37);
+			this.dataGridViewGroups.Location = new System.Drawing.Point(0, 51);
 			this.dataGridViewGroups.Name = "dataGridViewGroups";
 			this.dataGridViewGroups.RowHeadersWidth = 51;
 			this.dataGridViewGroups.RowTemplate.Height = 24;
-			this.dataGridViewGroups.Size = new System.Drawing.Size(789, 381);
+			this.dataGridViewGroups.Size = new System.Drawing.Size(789, 367);
 			this.dataGridViewGroups.TabIndex = 0;
 			// 
 			// tabPageDirections
@@ -241,11 +241,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridViewDisciplines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewDisciplines.Location = new System.Drawing.Point(0, 32);
+			this.dataGridViewDisciplines.Location = new System.Drawing.Point(0, 56);
 			this.dataGridViewDisciplines.Name = "dataGridViewDisciplines";
 			this.dataGridViewDisciplines.RowHeadersWidth = 51;
 			this.dataGridViewDisciplines.RowTemplate.Height = 24;
-			this.dataGridViewDisciplines.Size = new System.Drawing.Size(792, 393);
+			this.dataGridViewDisciplines.Size = new System.Drawing.Size(792, 369);
 			this.dataGridViewDisciplines.TabIndex = 0;
 			// 
 			// tabPageTeachers
@@ -265,11 +265,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridViewTeachers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewTeachers.Location = new System.Drawing.Point(3, 34);
+			this.dataGridViewTeachers.Location = new System.Drawing.Point(3, 59);
 			this.dataGridViewTeachers.Name = "dataGridViewTeachers";
 			this.dataGridViewTeachers.RowHeadersWidth = 51;
 			this.dataGridViewTeachers.RowTemplate.Height = 24;
-			this.dataGridViewTeachers.Size = new System.Drawing.Size(786, 384);
+			this.dataGridViewTeachers.Size = new System.Drawing.Size(786, 359);
 			this.dataGridViewTeachers.TabIndex = 0;
 			// 
 			// statusStrip

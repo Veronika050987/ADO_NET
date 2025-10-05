@@ -51,6 +51,7 @@ namespace Academy_PD_411
 		private List<CheckedListBox> columnSelectionLists = new List<CheckedListBox>();
 		private List<Button> showColumnButtons = new List<Button>();
 
+
 		public MainForm()
 		{
 			InitializeComponent();
@@ -84,7 +85,7 @@ namespace Academy_PD_411
 				columnSelectionList.CheckOnClick = true;
 				columnSelectionList.Visible = false;
 				columnSelectionList.Tag = tabPageName;
-				columnSelectionList.ItemCheck += ColumnSelectionList_ItemCheck; 
+				columnSelectionList.ItemCheck += ColumnSelectionList_ItemCheck;
 				this.Controls.Add(columnSelectionList);
 				columnSelectionLists.Add(columnSelectionList);
 
@@ -93,9 +94,15 @@ namespace Academy_PD_411
 				showColumnsButton.Tag = tabPageName;
 				showColumnsButton.Click += ShowColumnsButton_Click;
 				showColumnsButton.Location = new Point(10, 10);
+
+				showColumnsButton.BackColor = Color.LightBlue;
+				showColumnsButton.ForeColor = Color.DarkBlue;
+				showColumnsButton.FlatStyle = FlatStyle.Flat;
+				showColumnsButton.FlatAppearance.BorderSize = 0;
+				showColumnsButton.Font = new Font("Segoe UI", 7, FontStyle.Bold);
+
 				tabControl.TabPages[i].Controls.Add(showColumnsButton);
 				showColumnButtons.Add(showColumnsButton);
-
 			}
 		}
 
@@ -105,6 +112,9 @@ namespace Academy_PD_411
 			DataGridView dataGridView = this.Controls.Find($"dataGridView{tableName}", true)[0] as DataGridView;
 			DataTable dataTable = Select(queries[i].Fields, queries[i].Tables, queries[i].Condition);
 			dataGridView.DataSource = dataTable;
+
+			AutoSizeColumns(dataGridView);
+
 			if (i == 1) ConvertLearningDays();
 
 			CheckedListBox columnSelectionList = columnSelectionLists[i];
@@ -120,6 +130,19 @@ namespace Academy_PD_411
 
 			columnSelectionList.Location = new Point(dataGridViewLocation.X, dataGridViewLocation.Y + yOffset);
 
+		}
+
+		private void AutoSizeColumns(DataGridView dataGridView)
+		{
+			dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+			foreach (DataGridViewColumn column in dataGridView.Columns)
+			{
+				if (column.HeaderCell != null)
+				{
+					column.Width = Math.Max(column.Width, column.HeaderCell.Size.Width + 5);
+				}
+			}
 		}
 
 		void FillStatusBar(int i)
@@ -260,7 +283,6 @@ namespace Academy_PD_411
 			}
 		}
 
-
 		private void ColumnSelectionList_ItemCheck(object sender, ItemCheckEventArgs e)
 		{
 			CheckedListBox checkedListBox = (CheckedListBox)sender;
@@ -269,6 +291,7 @@ namespace Academy_PD_411
 
 			string columnName = checkedListBox.Items[e.Index].ToString();
 			dataGridView.Columns[columnName].Visible = (e.NewValue == CheckState.Checked);
+			AutoSizeColumns(dataGridView); // Re-adjust column widths after visibility changes
 		}
 
 		private void ShowColumnsButton_Click(object sender, EventArgs e)
@@ -283,8 +306,10 @@ namespace Academy_PD_411
 				currentList.Visible = !currentList.Visible;
 
 				Point dataGridViewLocation = dataGridView.Location;
-				int yOffset = -currentList.Height - 5;
+				int yOffset = -currentList.Height;
 				currentList.Location = new Point(dataGridViewLocation.X, dataGridViewLocation.Y + yOffset);
+
+				AutoSizeColumns(dataGridView); // Re-adjust column widths after showing/hiding list
 			}
 		}
 	}
