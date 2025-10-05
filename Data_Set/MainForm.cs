@@ -230,6 +230,7 @@ namespace Data_Set
 			foreach (DataRow row in ddr)
 			{
 				DataRow discipline = DisciplinesDirectionsRelation.Tables["Disciplines"].Rows.Find(row["discipline"]);
+				dtDisciplinesForDirection.ImportRow(discipline);
 			}
 			dataGridViewDisciplines.DataSource = dtDisciplinesForDirection;
 		}
