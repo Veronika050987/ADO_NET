@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 using System.Configuration;
+//#define INSERTPHOTO;
 
 namespace Academy_PD_411
 {
@@ -112,6 +113,63 @@ namespace Academy_PD_411
 
 			return table;
 		}
+
+#if INSERTPHOTO
+		void Insert(string table, string fields, string values, byte[] photo)
+		{
+			string cmd = $"INSERT {table}({fields}) VALUES ({values})";
+
+			if (photo != null && photo.Length > 0)
+			{
+				cmd = $"INSERT INTO {table} ({fields}, Photo) VALUES ({values}, @Photo)";
+			}
+
+			SqlCommand command = new SqlCommand(cmd, connection);
+
+			string escapedValues = values.Split(',')
+				.Select(value =>
+				{
+					value = value.Trim();
+					if (string.IsNullOrEmpty(value) || value.ToLower() == "null")
+					{
+						return "NULL";
+					}
+					else
+					{
+						return "'" + value.Replace("'", "''") + "'";
+					}
+				})
+				.Aggregate((a, b) => a + ", " + b);
+
+			command.CommandText = $"INSERT INTO {table} ({fields}) VALUES ({escapedValues})";
+
+
+			if (photo != null && photo.Length > 0)
+			{
+				SqlParameter photoParam = new SqlParameter("@Photo", SqlDbType.VarBinary, photo.Length);
+				photoParam.Value = photo;
+				command.Parameters.Add(photoParam);
+			}
+
+			Console.WriteLine(command.CommandText);
+
+			connection.Open();
+			try
+			{
+				command.ExecuteNonQuery();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"SQL Error: {ex.Message}");
+				throw;
+			}
+			finally
+			{
+				connection.Close();
+			}
+
+		} 
+#endif
 		void Insert(string table, string fields, string values)
 		{
 			string cmd = $"INSERT {table}({fields}) VALUES ({values})";
