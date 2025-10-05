@@ -112,13 +112,59 @@ namespace Academy_PD_411
 
 			return table;
 		}
-		void Insert(string table, string fields, string values)
+		void Insert(string table, string fields, string values, byte[] photo)
 		{
 			string cmd = $"INSERT {table}({fields}) VALUES ({values})";
+
+			if (photo != null && photo.Length > 0)
+			{
+				cmd = $"INSERT INTO {table} ({fields}, Photo) VALUES ({values}, @Photo)";
+			}
+
 			SqlCommand command = new SqlCommand(cmd, connection);
+
+			string escapedValues = values.Split(',')
+				.Select(value =>
+				{
+					value = value.Trim();
+					if (string.IsNullOrEmpty(value) || value.ToLower() == "null")
+					{
+						return "NULL";
+					}
+					else
+					{
+						return "'" + value.Replace("'", "''") + "'";
+					}
+				})
+				.Aggregate((a, b) => a + ", " + b);
+
+			command.CommandText = $"INSERT INTO {table} ({fields}) VALUES ({escapedValues})";
+
+
+			if (photo != null && photo.Length > 0)
+			{
+				SqlParameter photoParam = new SqlParameter("@Photo", SqlDbType.VarBinary, photo.Length);
+				photoParam.Value = photo;
+				command.Parameters.Add(photoParam);
+			}
+
+			Console.WriteLine(command.CommandText);
+
 			connection.Open();
-			command.ExecuteNonQuery();
-			connection.Close();
+			try
+			{
+				command.ExecuteNonQuery();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"SQL Error: {ex.Message}");
+				throw;
+			}
+			finally
+			{
+				connection.Close();
+			}
+
 		}
 		void ConvertLearningDays()
 		{
@@ -220,7 +266,8 @@ namespace Academy_PD_411
 					(
 						"Students",
 						"last_name, first_name, middle_name, birth_date, email, phone, [group]",
-						$"N'{student.Student.LastName}', N'{student.Student.FirstName}', N'{student.Student.MiddleName}', N'{student.Student.BirthDate}', N'{student.Student.Email}', N'{student.Student.Phone}', N'{student.Student.Group}'"
+						$"N'{student.Student.LastName}', N'{student.Student.FirstName}', N'{student.Student.MiddleName}', N'{student.Student.BirthDate}', N'{student.Student.Email}', N'{student.Student.Phone}', N'{student.Student.Group}'",
+						student.Student.Photo
 					);
 
 					LoadTab(tabControl.SelectedIndex);

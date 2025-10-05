@@ -181,6 +181,7 @@
 			this.buttonBrowsePhoto.TabIndex = 15;
 			this.buttonBrowsePhoto.Text = "Обзор";
 			this.buttonBrowsePhoto.UseVisualStyleBackColor = false;
+			this.buttonBrowsePhoto.Click += new System.EventHandler(this.buttonBrowsePhoto_Click);
 			// 
 			// buttonOK
 			// 
