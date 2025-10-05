@@ -24,9 +24,9 @@ namespace Academy_PD_411
 		{
 			new Query
 			(
-"stud_id,FORMATMESSAGE(N'%s %s %s',last_name,first_name,middle_name) AS N'Student', group_name AS N'Group',direction_name AS N'Direction'",
-"Students,Groups,Directions",
-"[group]=group_id AND direction=direction_id"
+				"stud_id,FORMATMESSAGE(N'%s %s %s',last_name,first_name,middle_name) AS N'Student', group_name AS N'Group',direction_name AS N'Direction'",
+				"Students,Groups,Directions",
+				"[group]=group_id AND direction=direction_id"
 			),
 			new Query
 			(
@@ -47,6 +47,10 @@ namespace Academy_PD_411
 			"Disciplines number ",
 			"Teachers number "
 		};
+
+		private List<CheckedListBox> columnSelectionLists = new List<CheckedListBox>();
+		private List<Button> showColumnButtons = new List<Button>();
+
 		public MainForm()
 		{
 			InitializeComponent();
@@ -71,8 +75,27 @@ namespace Academy_PD_411
 
 			for (int i = 0; i < tabControl.TabCount; i++)
 			{
-				(this.Controls.Find($"dataGridView{tabControl.TabPages[i].Name.Remove(0, "tabPage".Length)}", true)[0] as DataGridView).RowsAdded
-					+= new DataGridViewRowsAddedEventHandler(this.dataGridViewChanged);
+				string tabPageName = tabControl.TabPages[i].Name.Remove(0, "tabPage".Length);
+				DataGridView dataGridView = (DataGridView)this.Controls.Find($"dataGridView{tabPageName}", true)[0];
+
+				dataGridView.RowsAdded += new DataGridViewRowsAddedEventHandler(this.dataGridViewChanged);
+
+				CheckedListBox columnSelectionList = new CheckedListBox();
+				columnSelectionList.CheckOnClick = true;
+				columnSelectionList.Visible = false;
+				columnSelectionList.Tag = tabPageName;
+				columnSelectionList.ItemCheck += ColumnSelectionList_ItemCheck; 
+				this.Controls.Add(columnSelectionList);
+				columnSelectionLists.Add(columnSelectionList);
+
+				Button showColumnsButton = new Button();
+				showColumnsButton.Text = "Show/Hide Columns";
+				showColumnsButton.Tag = tabPageName;
+				showColumnsButton.Click += ShowColumnsButton_Click;
+				showColumnsButton.Location = new Point(10, 10);
+				tabControl.TabPages[i].Controls.Add(showColumnsButton);
+				showColumnButtons.Add(showColumnsButton);
+
 			}
 		}
 
@@ -80,10 +103,25 @@ namespace Academy_PD_411
 		{
 			string tableName = tabControl.TabPages[i].Name.Remove(0, "tabPage".Length);
 			DataGridView dataGridView = this.Controls.Find($"dataGridView{tableName}", true)[0] as DataGridView;
-			dataGridView.DataSource = Select(queries[i].Fields, queries[i].Tables, queries[i].Condition);
-			//toolStripStatusLabel.Text = $"{statusBarMessages[i]}: {dataGridView.RowCount - 1}";
+			DataTable dataTable = Select(queries[i].Fields, queries[i].Tables, queries[i].Condition);
+			dataGridView.DataSource = dataTable;
 			if (i == 1) ConvertLearningDays();
+
+			CheckedListBox columnSelectionList = columnSelectionLists[i];
+			columnSelectionList.Items.Clear();
+			foreach (DataColumn column in dataTable.Columns)
+			{
+				columnSelectionList.Items.Add(column.ColumnName, true);
+			}
+
+			Point dataGridViewLocation = dataGridView.Location;
+
+			int yOffset = -columnSelectionList.Height - 5;
+
+			columnSelectionList.Location = new Point(dataGridViewLocation.X, dataGridViewLocation.Y + yOffset);
+
 		}
+
 		void FillStatusBar(int i)
 		{
 
@@ -122,7 +160,7 @@ namespace Academy_PD_411
 		}
 		void ConvertLearningDays()
 		{
-			for(int i=0;i<dataGridViewGroups.RowCount;i++)
+			for (int i = 0; i < dataGridViewGroups.RowCount; i++)
 			{
 				dataGridViewGroups.Rows[i].Cells["learning_days"].Value =
 					new Week(Convert.ToByte(dataGridViewGroups.Rows[i].Cells["learning_days"].Value));
@@ -136,7 +174,7 @@ namespace Academy_PD_411
 			string cmd = $"SELECT {fields} FROM {tables}";
 			if (!string.IsNullOrWhiteSpace(condition))
 				cmd += $" WHERE {condition}";
-			
+
 			SqlCommand command = new SqlCommand(cmd, connection);
 			connection.Open();
 			SqlDataReader reader = command.ExecuteReader();
@@ -184,7 +222,7 @@ namespace Academy_PD_411
 				(
 					queries[0].Fields,
 					queries[0].Tables,
-					queries[0].Condition + (string.IsNullOrEmpty(condition)? "" : $" AND {condition}")
+					queries[0].Condition + (string.IsNullOrEmpty(condition) ? "" : $" AND {condition}")
 				);
 		}
 
@@ -202,7 +240,7 @@ namespace Academy_PD_411
 					queries[0].Tables,
 					queries[0].Condition
 					+ (string.IsNullOrWhiteSpace(condition_group) ? "" : $" AND {condition_group}")
-					+ (string.IsNullOrWhiteSpace(condition_direction) ? "" :$" AND {condition_direction}")
+					+ (string.IsNullOrWhiteSpace(condition_direction) ? "" : $" AND {condition_direction}")
 				);
 		}
 
@@ -210,15 +248,43 @@ namespace Academy_PD_411
 		{
 			StudentForm student = new StudentForm();
 			DialogResult result = student.ShowDialog();
-			if(result == DialogResult.OK)
+			if (result == DialogResult.OK)
 			{
 				//Делаем INSERT в базу
 				Insert
 					(
-					"Students", 
+					"Students",
 					"last_name, first-name, middle_name, birth_date, email, phone, [group]",
 					student.Student.ToString()
 					);
+			}
+		}
+
+
+		private void ColumnSelectionList_ItemCheck(object sender, ItemCheckEventArgs e)
+		{
+			CheckedListBox checkedListBox = (CheckedListBox)sender;
+			string dataGridViewName = (string)checkedListBox.Tag;
+			DataGridView dataGridView = (DataGridView)this.Controls.Find($"dataGridView{dataGridViewName}", true)[0];
+
+			string columnName = checkedListBox.Items[e.Index].ToString();
+			dataGridView.Columns[columnName].Visible = (e.NewValue == CheckState.Checked);
+		}
+
+		private void ShowColumnsButton_Click(object sender, EventArgs e)
+		{
+			Button button = (Button)sender;
+			string dataGridViewName = (string)button.Tag;
+			DataGridView dataGridView = (DataGridView)this.Controls.Find($"dataGridView{dataGridViewName}", true)[0];
+
+			CheckedListBox currentList = columnSelectionLists.FirstOrDefault(clb => (string)clb.Tag == dataGridViewName);
+			if (currentList != null)
+			{
+				currentList.Visible = !currentList.Visible;
+
+				Point dataGridViewLocation = dataGridView.Location;
+				int yOffset = -currentList.Height - 5;
+				currentList.Location = new Point(dataGridViewLocation.X, dataGridViewLocation.Y + yOffset);
 			}
 		}
 	}
