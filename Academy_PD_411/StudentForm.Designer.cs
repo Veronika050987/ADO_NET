@@ -174,14 +174,14 @@
 			// 
 			// buttonBrowsePhoto
 			// 
-			this.buttonBrowsePhoto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-			this.buttonBrowsePhoto.Location = new System.Drawing.Point(260, 328);
-			this.buttonBrowsePhoto.Name = "buttonBrowsePhoto";
-			this.buttonBrowsePhoto.Size = new System.Drawing.Size(75, 23);
-			this.buttonBrowsePhoto.TabIndex = 15;
-			this.buttonBrowsePhoto.Text = "Обзор";
-			this.buttonBrowsePhoto.UseVisualStyleBackColor = false;
-			this.buttonBrowsePhoto.Click += new System.EventHandler(this.buttonBrowsePhoto_Click);
+			//this.buttonBrowsePhoto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+			//this.buttonBrowsePhoto.Location = new System.Drawing.Point(260, 328);
+			//this.buttonBrowsePhoto.Name = "buttonBrowsePhoto";
+			//this.buttonBrowsePhoto.Size = new System.Drawing.Size(75, 23);
+			//this.buttonBrowsePhoto.TabIndex = 15;
+			//this.buttonBrowsePhoto.Text = "Обзор";
+			//this.buttonBrowsePhoto.UseVisualStyleBackColor = false;
+			//this.buttonBrowsePhoto.Click += new System.EventHandler(this.buttonBrowsePhoto_Click);
 			// 
 			// buttonOK
 			// 
