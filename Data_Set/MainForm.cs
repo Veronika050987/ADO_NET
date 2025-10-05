@@ -226,12 +226,15 @@ namespace Data_Set
 			DataRow[] ddr = DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"]
 				.Select($"direction={comboBoxDisciplinesForDirection.SelectedValue}");
 
+			//2) Клонируем таблицу с дисциплинами
 			DataTable dtDisciplinesForDirection = DisciplinesDirectionsRelation.Tables["Disciplines"].Clone();
 			foreach (DataRow row in ddr)
 			{
 				DataRow discipline = DisciplinesDirectionsRelation.Tables["Disciplines"].Rows.Find(row["discipline"]);
 				dtDisciplinesForDirection.ImportRow(discipline);
 			}
+
+			//4) Отображаем выбранные дисциплины:
 			dataGridViewDisciplines.DataSource = dtDisciplinesForDirection;
 		}
 	}
