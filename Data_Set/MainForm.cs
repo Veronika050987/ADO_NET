@@ -222,11 +222,16 @@ namespace Data_Set
 
 		private void comboBoxDisciplinesForDirection_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			dataGridViewDisciplines.DataSource =
-				DisciplinesDirectionsRelation.
-				Tables["DisciplinesDirectionsRelation"]
-				.ParentRelations["Discipline"]
-				.ParentTable;
+			//1) Получаем набор значений из связующей таблицы
+			DataRow[] ddr = DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"]
+				.Select($"direction={comboBoxDisciplinesForDirection.SelectedValue}");
+
+			DataTable dtDisciplinesForDirection = DisciplinesDirectionsRelation.Tables["Disciplines"].Clone();
+			foreach (DataRow row in ddr)
+			{
+				DataRow discipline = DisciplinesDirectionsRelation.Tables["Disciplines"].Rows.Find(row["discipline"]);
+			}
+			dataGridViewDisciplines.DataSource = dtDisciplinesForDirection;
 		}
 	}
 }
