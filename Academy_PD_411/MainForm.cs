@@ -51,7 +51,6 @@ namespace Academy_PD_411
 		private List<CheckedListBox> columnSelectionLists = new List<CheckedListBox>();
 		private List<Button> showColumnButtons = new List<Button>();
 
-
 		public MainForm()
 		{
 			InitializeComponent();
