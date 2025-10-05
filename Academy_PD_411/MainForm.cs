@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
+using System.Configuration;
 
 namespace Academy_PD_411
 {
@@ -50,6 +51,8 @@ namespace Academy_PD_411
 		{
 			InitializeComponent();
 			AllocConsole();
+			connectionString = ConfigurationManager.ConnectionStrings["PD_321"].ConnectionString;
+			Console.WriteLine(connectionString);
 			connection = new SqlConnection(connectionString);
 			//LoadDirections();
 			//LoadGroups();
@@ -108,6 +111,14 @@ namespace Academy_PD_411
 			connection.Close();
 
 			return table;
+		}
+		void Insert(string table, string fields, string values)
+		{
+			string cmd = $"INSERT {table}({fields}) VALUES ({values})";
+			SqlCommand command = new SqlCommand(cmd, connection);
+			connection.Open();
+			command.ExecuteNonQuery();
+			connection.Close();
 		}
 		void ConvertLearningDays()
 		{
@@ -193,6 +204,22 @@ namespace Academy_PD_411
 					+ (string.IsNullOrWhiteSpace(condition_group) ? "" : $" AND {condition_group}")
 					+ (string.IsNullOrWhiteSpace(condition_direction) ? "" :$" AND {condition_direction}")
 				);
+		}
+
+		private void buttonAddStudent_Click(object sender, EventArgs e)
+		{
+			StudentForm student = new StudentForm();
+			DialogResult result = student.ShowDialog();
+			if(result == DialogResult.OK)
+			{
+				//Делаем INSERT в базу
+				Insert
+					(
+					"Students", 
+					"last_name, first-name, middle_name, birth_date, email, phone, [group]",
+					student.Student.ToString()
+					);
+			}
 		}
 	}
 }

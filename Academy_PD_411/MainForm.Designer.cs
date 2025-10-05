@@ -102,6 +102,7 @@
 			this.buttonAddStudent.TabIndex = 5;
 			this.buttonAddStudent.Text = "Add";
 			this.buttonAddStudent.UseVisualStyleBackColor = false;
+			this.buttonAddStudent.Click += new System.EventHandler(this.buttonAddStudent_Click);
 			// 
 			// comboBoxStudentsDirection
 			// 
