@@ -210,15 +210,26 @@ namespace Academy_PD_411
 		{
 			StudentForm student = new StudentForm();
 			DialogResult result = student.ShowDialog();
-			if(result == DialogResult.OK)
+			if (result == DialogResult.OK)
 			{
-				//Делаем INSERT в базу
-				Insert
+				try
+				{
+					string values = $"N'{student.Student.LastName}', N'{student.Student.FirstName}', N'{student.Student.MiddleName}', N'{student.Student.BirthDate}', N'{student.Student.Email}', N'{student.Student.Phone}', N'{student.Student.Group}'";
+
+					Insert
 					(
-					"Students", 
-					"last_name, first-name, middle_name, birth_date, email, phone, [group]",
-					student.Student.ToString()
+						"Students",
+						"last_name, first_name, middle_name, birth_date, email, phone, [group]",
+						$"N'{student.Student.LastName}', N'{student.Student.FirstName}', N'{student.Student.MiddleName}', N'{student.Student.BirthDate}', N'{student.Student.Email}', N'{student.Student.Phone}', N'{student.Student.Group}'"
 					);
+
+					LoadTab(tabControl.SelectedIndex);
+
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show($"Error adding student: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
 			}
 		}
 	}

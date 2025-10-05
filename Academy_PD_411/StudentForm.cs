@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//#define COMPRESS;
 
 namespace Academy_PD_411
 {
@@ -20,10 +21,11 @@ namespace Academy_PD_411
 			connector = new Connector();
 			DataTable groups = connector.Select("*", "Groups");
 			comboBoxGroup.DataSource = groups;
-			comboBoxGroup.DisplayMember = groups.Columns[1].ToString();
-			comboBoxGroup.ValueMember = groups.Columns[0].ToString();
-			
+			comboBoxGroup.DisplayMember = "group_name";
+			comboBoxGroup.ValueMember = "group_id";
+
 		}
+#if COMPRESS
 		void Compress()
 		{
 			Student.LastName = textBoxLastName.Text;
@@ -34,18 +36,37 @@ namespace Academy_PD_411
 			Student.Group = Convert.ToInt32(comboBoxGroup.SelectedValue);
 		}
 
+#endif
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			Student = new Student
+			if (string.IsNullOrWhiteSpace(textBoxLastName.Text) ||
+			   string.IsNullOrWhiteSpace(textBoxFirstName.Text))
+			{
+				MessageBox.Show("Last Name and First Name are required", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			try
+			{
+				Student = new Student
 				(
 					textBoxLastName.Text,
 					textBoxFirstName.Text,
 					textBoxMiddleName.Text,
-					dateTimePickerBirthDate.Text,
+					dateTimePickerBirthDate.Value.ToString("yyyyMMdd"),
 					textBoxEmail.Text,
 					textBoxPhone.Text,
 					Convert.ToInt32(comboBoxGroup.SelectedValue)
 				);
+
+				this.DialogResult = DialogResult.OK;
+				this.Close();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error creating student: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
 		}
 	}
 }
