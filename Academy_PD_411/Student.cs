@@ -14,7 +14,7 @@ namespace Academy_PD_411
 		public string BirthDate { get; set; }
 		public string Email { get; set; }
 		public string Phone { get; set; }
-		public string Group { get; set; }
+		public int Group { get; set; }
 		public byte[] Photo { get; set; }
 		public Student() { }
 		public Student(string last_name, string first_name, string middle_name, string birth_date, string email, string phone, int group)
@@ -25,6 +25,7 @@ namespace Academy_PD_411
 			BirthDate = birth_date;
 			Email = email;
 			Phone = phone;
+			Group = group;
 		}
 		public override string ToString()
 		{

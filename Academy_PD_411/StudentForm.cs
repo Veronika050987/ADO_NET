@@ -31,7 +31,7 @@ namespace Academy_PD_411
 			Student.MiddleName = textBoxMiddleName.Text;
 			Student.Email = textBoxEmail.Text;
 			Student.Phone = textBoxPhone.Text;
-			Student.Group = Convert.ToString(comboBoxGroup.SelectedValue);
+			Student.Group = Convert.ToInt32(comboBoxGroup.SelectedValue);
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
