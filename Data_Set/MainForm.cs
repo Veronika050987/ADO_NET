@@ -222,31 +222,49 @@ namespace Data_Set
 
 		private void comboBoxDisciplinesForDirection_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			////1) Получаем набор значений из связующей таблицы
-			//DataRow[] ddr = DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"]
-			//	.Select($"direction={comboBoxDisciplinesForDirection.SelectedValue}");
+			if (DisciplinesDirectionsRelation == null || DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"] == null || DisciplinesDirectionsRelation.Tables["Disciplines"] == null)
+			{
+				MessageBox.Show("DataSets are not properly initialized.");
+				return;
+			}
 
-			////2) Клонируем таблицу с дисциплинами
-			//DataTable dtDisciplinesForDirection = DisciplinesDirectionsRelation.Tables["Disciplines"].Clone();
-			//foreach (DataRow row in ddr)
-			//{
-			//	DataRow discipline = DisciplinesDirectionsRelation.Tables["Disciplines"].Rows.Find(row["discipline"]);
-			//	dtDisciplinesForDirection.ImportRow(discipline);
-			//}
+			if (comboBoxDisciplinesForDirection.SelectedValue == null)
+			{
+				dataGridViewDisciplines.DataSource = null;
+				return; // No item selected
+			}
 
-			////4) Отображаем выбранные дисциплины:
-			//dataGridViewDisciplines.DataSource = dtDisciplinesForDirection;
+			try
+			{
+				// Safely get the selected direction ID.  Use a try-catch block because SelectedValue could be null
+				if (!int.TryParse(comboBoxDisciplinesForDirection.SelectedValue.ToString(), out int selectedDirectionId))
+				{
+					//If its null/can't parse, clear grid and exit
+					dataGridViewDisciplines.DataSource = null;
+					return;
+				}
 
-			//////////////////////////////////////////////////////////
+				// LINQ query to join DisciplinesDirectionsRelation and Disciplines tables
+				var disciplines = from ddrRow in DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"].AsEnumerable()
+								  join disciplineRow in DisciplinesDirectionsRelation.Tables["Disciplines"].AsEnumerable()
+								  on ddrRow.Field<int>("discipline") equals disciplineRow.Field<int>("discipline_id")
+								  where ddrRow.Field<int>("direction") == selectedDirectionId
+								  select disciplineRow;
 
-			DataRow[] ddr = DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"]
-				.Select($"direction={comboBoxDisciplinesForDirection.SelectedValue}");
-			DataTable dtDisciplines = DisciplinesDirectionsRelation.Tables["Disciplines"].Clone();
+				// Copy the results to a DataTable (if any)
+				DataTable dtDisciplines = null;
+				if (disciplines.Any())
+				{
+					dtDisciplines = disciplines.CopyToDataTable();
+				}
 
-			object[] discipline_ids = ddr.Select(row => row["discipline"]).Distinct().ToArray();
-			string filter = $"discipline_id IN ({string.Join(",", discipline_ids)})";			
-			dataGridViewDisciplines.DataSource = 
-				DisciplinesDirectionsRelation.Tables["Disciplines"].Select(filter).CopyToDataTable();
+				// Set the DataGridView's DataSource
+				dataGridViewDisciplines.DataSource = dtDisciplines;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 	}
 }
