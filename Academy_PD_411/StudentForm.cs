@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Runtime.InteropServices;
 //#define COMPRESS;
 
 namespace Academy_PD_411
@@ -16,7 +19,7 @@ namespace Academy_PD_411
 	{
 		internal Student Student { get; set; }
 		Connector connector;
-		//private byte[] selectedPhotoBytes = null;
+		private byte[] selectedPhotoBytes = null;
 		public StudentForm()
 		{
 			InitializeComponent();
@@ -38,31 +41,31 @@ namespace Academy_PD_411
 		}
 
 #endif
-		//private void buttonBrowsePhoto_Click(object sender, EventArgs e)
-		//{
-		//	OpenFileDialog openFileDialog = new OpenFileDialog();
-		//	openFileDialog.Filter = "Image Files (*.jpg, *.jpeg, *.png, *.bmp)|*.jpg;*.jpeg;*.png;*.bmp";
-		//	if (openFileDialog.ShowDialog() == DialogResult.OK)
-		//	{
-		//		try
-		//		{
-		//			// Read the image file into a byte array
-		//			selectedPhotoBytes = File.ReadAllBytes(openFileDialog.FileName);
+		private void buttonBrowsePhoto_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Filter = "Image Files (*.jpg, *.jpeg, *.png, *.bmp)|*.jpg;*.jpeg;*.png;*.bmp";
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				try
+				{
+					// Read the image file into a byte array
+					selectedPhotoBytes = File.ReadAllBytes(openFileDialog.FileName);
 
-		//			// Display the image in the PictureBox
-		//			using (MemoryStream ms = new MemoryStream(selectedPhotoBytes))
-		//			{
-		//				pictureBoxPhoto.Image = Image.FromStream(ms);
-		//			}
-		//		}
-		//		catch (Exception ex)
-		//		{
-		//			MessageBox.Show($"Error loading image: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-		//			selectedPhotoBytes = null;
-		//			pictureBoxPhoto.Image = null;
-		//		}
-		//	}
-		//}
+					// Display the image in the PictureBox
+					using (MemoryStream ms = new MemoryStream(selectedPhotoBytes))
+					{
+						pictureBoxPhoto.Image = Image.FromStream(ms);
+					}
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show($"Error loading image: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					selectedPhotoBytes = null;
+					pictureBoxPhoto.Image = null;
+				}
+			}
+		}
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
 			if (string.IsNullOrWhiteSpace(textBoxLastName.Text) ||
@@ -84,6 +87,8 @@ namespace Academy_PD_411
 					textBoxPhone.Text,
 					Convert.ToInt32(comboBoxGroup.SelectedValue)
 				);
+
+				Student.Photo = selectedPhotoBytes;
 
 				this.DialogResult = DialogResult.OK;
 				this.Close();

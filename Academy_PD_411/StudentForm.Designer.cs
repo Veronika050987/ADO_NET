@@ -174,22 +174,22 @@
 			// 
 			// buttonBrowsePhoto
 			// 
-			//this.buttonBrowsePhoto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-			//this.buttonBrowsePhoto.Location = new System.Drawing.Point(260, 328);
-			//this.buttonBrowsePhoto.Name = "buttonBrowsePhoto";
-			//this.buttonBrowsePhoto.Size = new System.Drawing.Size(75, 23);
-			//this.buttonBrowsePhoto.TabIndex = 15;
-			//this.buttonBrowsePhoto.Text = "Обзор";
-			//this.buttonBrowsePhoto.UseVisualStyleBackColor = false;
-			//this.buttonBrowsePhoto.Click += new System.EventHandler(this.buttonBrowsePhoto_Click);
+			this.buttonBrowsePhoto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+			this.buttonBrowsePhoto.Location = new System.Drawing.Point(103, 311);
+			this.buttonBrowsePhoto.Name = "buttonBrowsePhoto";
+			this.buttonBrowsePhoto.Size = new System.Drawing.Size(172, 46);
+			this.buttonBrowsePhoto.TabIndex = 18;
+			this.buttonBrowsePhoto.Text = "Загрузить фото";
+			this.buttonBrowsePhoto.UseVisualStyleBackColor = false;
+			this.buttonBrowsePhoto.Click += new System.EventHandler(this.buttonBrowsePhoto_Click);
 			// 
 			// buttonOK
 			// 
 			this.buttonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.buttonOK.Location = new System.Drawing.Point(430, 328);
+			this.buttonOK.Location = new System.Drawing.Point(430, 311);
 			this.buttonOK.Name = "buttonOK";
-			this.buttonOK.Size = new System.Drawing.Size(75, 23);
+			this.buttonOK.Size = new System.Drawing.Size(75, 40);
 			this.buttonOK.TabIndex = 16;
 			this.buttonOK.Text = "OK";
 			this.buttonOK.UseVisualStyleBackColor = false;
@@ -199,9 +199,9 @@
 			// 
 			this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonCancel.Location = new System.Drawing.Point(600, 328);
+			this.buttonCancel.Location = new System.Drawing.Point(600, 311);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+			this.buttonCancel.Size = new System.Drawing.Size(75, 40);
 			this.buttonCancel.TabIndex = 17;
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = false;

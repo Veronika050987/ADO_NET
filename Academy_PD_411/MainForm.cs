@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 using System.Configuration;
-//#define INSERTPHOTO;
+//#define INSERTSTUD;
 
 namespace Academy_PD_411
 {
@@ -113,8 +113,6 @@ namespace Academy_PD_411
 
 			return table;
 		}
-
-#if INSERTPHOTO
 		void Insert(string table, string fields, string values, byte[] photo)
 		{
 			string cmd = $"INSERT {table}({fields}) VALUES ({values})";
@@ -143,7 +141,6 @@ namespace Academy_PD_411
 
 			command.CommandText = $"INSERT INTO {table} ({fields}) VALUES ({escapedValues})";
 
-
 			if (photo != null && photo.Length > 0)
 			{
 				SqlParameter photoParam = new SqlParameter("@Photo", SqlDbType.VarBinary, photo.Length);
@@ -169,7 +166,8 @@ namespace Academy_PD_411
 			}
 
 		} 
-#endif
+
+#if INSERTSTUD
 		void Insert(string table, string fields, string values)
 		{
 			string cmd = $"INSERT {table}({fields}) VALUES ({values})";
@@ -177,7 +175,8 @@ namespace Academy_PD_411
 			connection.Open();
 			command.ExecuteNonQuery();
 			connection.Close();
-		}
+		} 
+#endif
 		void ConvertLearningDays()
 		{
 			for(int i=0;i<dataGridViewGroups.RowCount;i++)
@@ -272,13 +271,16 @@ namespace Academy_PD_411
 			{
 				try
 				{
-					string values = $"N'{student.Student.LastName}', N'{student.Student.FirstName}', N'{student.Student.MiddleName}', N'{student.Student.BirthDate}', N'{student.Student.Email}', N'{student.Student.Phone}', N'{student.Student.Group}'";
+					string birthDateFormatted = student.Student.BirthDate;
+
+					string values = $"N'{student.Student.LastName}', N'{student.Student.FirstName}', N'{student.Student.MiddleName}', '{birthDateFormatted}', N'{student.Student.Email}', N'{student.Student.Phone}', N'{student.Student.Group}'";
 
 					Insert
 					(
 						"Students",
 						"last_name, first_name, middle_name, birth_date, email, phone, [group]",
-						$"N'{student.Student.LastName}', N'{student.Student.FirstName}', N'{student.Student.MiddleName}', N'{student.Student.BirthDate}', N'{student.Student.Email}', N'{student.Student.Phone}', N'{student.Student.Group}'"
+						$"N'{student.Student.LastName}', N'{student.Student.FirstName}', N'{student.Student.MiddleName}', '{birthDateFormatted}', N'{student.Student.Email}', N'{student.Student.Phone}', N'{student.Student.Group}'",
+						student.Student.Photo
 					);
 
 					LoadTab(tabControl.SelectedIndex);
