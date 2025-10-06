@@ -150,11 +150,14 @@
 			this.dataGridViewStudents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			this.dataGridViewStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewStudents.Location = new System.Drawing.Point(0, 37);
+			this.dataGridViewStudents.MultiSelect = false;
 			this.dataGridViewStudents.Name = "dataGridViewStudents";
 			this.dataGridViewStudents.RowHeadersWidth = 51;
 			this.dataGridViewStudents.RowTemplate.Height = 24;
+			this.dataGridViewStudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGridViewStudents.Size = new System.Drawing.Size(786, 381);
 			this.dataGridViewStudents.TabIndex = 0;
+			this.dataGridViewStudents.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewStudents_MouseDoubleClick);
 			// 
 			// tabPageGroups
 			// 
@@ -197,6 +200,7 @@
 			this.dataGridViewGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewGroups.Location = new System.Drawing.Point(0, 37);
 			this.dataGridViewGroups.Name = "dataGridViewGroups";
+			this.dataGridViewGroups.ReadOnly = true;
 			this.dataGridViewGroups.RowHeadersWidth = 51;
 			this.dataGridViewGroups.RowTemplate.Height = 24;
 			this.dataGridViewGroups.Size = new System.Drawing.Size(789, 381);

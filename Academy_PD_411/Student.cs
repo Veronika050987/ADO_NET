@@ -29,7 +29,7 @@ namespace Academy_PD_411
 		}
 		public override string ToString()
 		{
-			return $"N'{LastName}',N'{FirstName}', N'{MiddleName}',N'{Email}',N'{Phone}', N'{Group}'";
+			return $"N'{LastName}',N'{FirstName}', N'{MiddleName}', '{BirthDate}',N'{Email}',N'{Phone}', {Group}";
 		}
 	}
 }
