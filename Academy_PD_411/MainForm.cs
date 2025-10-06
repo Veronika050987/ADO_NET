@@ -237,17 +237,10 @@ namespace Academy_PD_411
 				connector.Update
 					(
 						"Students", 
-						$@"
-last_name=N'{form.Student.LastName}', 
-first_name=N'{form.Student.FirstName}',
-middle_name=N'{form.Student.MiddleName}',
-birth_date='{form.Student.BirthDate}',
-email=N'{form.Student.Email}',
-phone=N'{form.Student.Phone}',
-[group]={form.Student.Group}
-",
+						form.Student.ToStringUpdate(),
 						$"stud_id={i}"
 					);
+				comboBoxStudentsGroup_SelectedIndexChanged(null, null);
 			}
 		}
 	}

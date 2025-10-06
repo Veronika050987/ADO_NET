@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Academy_PD_411
 {
@@ -30,6 +31,19 @@ namespace Academy_PD_411
 		public override string ToString()
 		{
 			return $"N'{LastName}',N'{FirstName}', N'{MiddleName}', '{BirthDate}',N'{Email}',N'{Phone}', {Group}";
+		}
+		public string ToStringUpdate()
+		{
+			return $@"
+last_name=N'{LastName}', 
+first_name=N'{FirstName}',
+middle_name=N'{MiddleName}',
+birth_date='{BirthDate}',
+email=N'{Email}',
+phone=N'{Phone}',
+[group]={Group}
+";
+
 		}
 	}
 }
