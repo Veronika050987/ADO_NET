@@ -25,7 +25,7 @@ namespace Academy_PD_411
 			
 			InitForm();
 		}
-		public StudentForm(DataRow row):this()
+		public StudentForm(int stud_id):this()
 		{
 			//string[] fullName = row[1].ToString().Split('');
 			//textBoxLastName.Text = fullName[0];
@@ -36,7 +36,7 @@ namespace Academy_PD_411
 			//textBoxEmail.Text = row[3].ToString();
 			//textBoxPhone.Text = row[6].ToString();
 			//comboBoxGroup.SelectedValue = row[7];
-			int stud_id = Convert.ToInt32(row[0]);
+			//int stud_id = Convert.ToInt32(row[0]);
 			DataTable student = connector.Select("*", "Students", $"stud_id={stud_id}");
 
 			textBoxLastName.Text = student.Rows[0][1].ToString();
