@@ -85,6 +85,32 @@ namespace Academy_PD_411
 			//toolStripStatusLabel.Text = $"{statusBarMessages[i]}: {dataGridView.RowCount - 1}";
 			if (i == 1) ConvertLearningDays();
 		}
+
+		void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		{
+			if (sender is DataGridView dataGridView)
+			{
+				//Check to see if we are formatting the "birth_date" column in the "Students" table
+				if (dataGridView.Name == "dataGridViewStudents" && dataGridView.Columns[e.ColumnIndex].DataPropertyName == "birth_date")
+				{
+					if (e.Value != null && e.Value != DBNull.Value && e.Value is string dateString)
+					{
+						if (DateTime.TryParseExact(dateString, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
+						{
+							e.Value = birthDate.ToShortDateString();
+							e.FormattingApplied = true;
+						}
+						else
+						{
+							// Handle cases where the date isn't in the expected format:
+							e.Value = "Invalid Date"; // Or display the original value
+							e.FormattingApplied = true;
+						}
+					}
+				}
+			}
+		}
+
 		void FillStatusBar(int i)
 		{
 
