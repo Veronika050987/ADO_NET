@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Drawing;
 
 namespace Academy_PD_411
 {	
@@ -50,6 +51,16 @@ namespace Academy_PD_411
 			command.ExecuteNonQuery();
 			connection.Close();
 		}
+		public void UploadPhoto(byte[] image, int id, string field, string table)
+		{
+
+			string cmd = $"UPDATE {table} SET {field}=@image WHERE {GetPrimaryKeyName(table)}={id}";
+			SqlCommand command = new SqlCommand(cmd, connection);
+			command.Parameters.Add("@image", SqlDbType.VarBinary).Value = image;
+			connection.Open();
+			command.ExecuteNonQuery();
+			connection.Close();
+		}
 		public void Update(string table, string field, string condition)
 		{
 			string cmd = $"UPDATE {table} SET {field} WHERE {condition}";
@@ -58,5 +69,26 @@ namespace Academy_PD_411
 			command.ExecuteNonQuery();
 			connection.Close();
 		}
+
+		public object Scalar(string cmd)
+		{
+			connection.Open();
+			SqlCommand command = new SqlCommand(cmd, connection);
+			object obj = command.ExecuteScalar();
+			connection.Close();
+			return obj;
+		}
+		public string GetPrimaryKeyName(string table)
+		{
+			return Scalar
+				(
+				$@"SELECT COLUMN_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE	OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA+'.'+QUOTENAME(CONSTRAINT_NAME)),'IsPrimaryKey')=1
+AND		TABLE_NAME='{table}'"
+				) as string;
+
+		}
+
 	}
 }
