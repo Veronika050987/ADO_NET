@@ -48,6 +48,7 @@
 			this.dataGridViewTeachers = new System.Windows.Forms.DataGridView();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.buttonAddTeacher = new System.Windows.Forms.Button();
 			this.tabControl.SuspendLayout();
 			this.tabPageStudents.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).BeginInit();
@@ -254,6 +255,7 @@
 			// 
 			// tabPageTeachers
 			// 
+			this.tabPageTeachers.Controls.Add(this.buttonAddTeacher);
 			this.tabPageTeachers.Controls.Add(this.dataGridViewTeachers);
 			this.tabPageTeachers.Location = new System.Drawing.Point(4, 25);
 			this.tabPageTeachers.Name = "tabPageTeachers";
@@ -269,12 +271,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridViewTeachers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewTeachers.Location = new System.Drawing.Point(3, 34);
+			this.dataGridViewTeachers.Location = new System.Drawing.Point(3, 29);
 			this.dataGridViewTeachers.Name = "dataGridViewTeachers";
 			this.dataGridViewTeachers.RowHeadersWidth = 51;
 			this.dataGridViewTeachers.RowTemplate.Height = 24;
 			this.dataGridViewTeachers.Size = new System.Drawing.Size(786, 384);
 			this.dataGridViewTeachers.TabIndex = 0;
+			this.dataGridViewTeachers.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewTeachers_MouseClick);
 			// 
 			// statusStrip
 			// 
@@ -292,6 +295,17 @@
 			this.toolStripStatusLabel.Name = "toolStripStatusLabel";
 			this.toolStripStatusLabel.Size = new System.Drawing.Size(143, 20);
 			this.toolStripStatusLabel.Text = "toolStripStatusLabel";
+			// 
+			// buttonAddTeacher
+			// 
+			this.buttonAddTeacher.BackColor = System.Drawing.Color.MediumOrchid;
+			this.buttonAddTeacher.Location = new System.Drawing.Point(692, 7);
+			this.buttonAddTeacher.Name = "buttonAddTeacher";
+			this.buttonAddTeacher.Size = new System.Drawing.Size(75, 23);
+			this.buttonAddTeacher.TabIndex = 1;
+			this.buttonAddTeacher.Text = "Add";
+			this.buttonAddTeacher.UseVisualStyleBackColor = false;
+			this.buttonAddTeacher.Click += new System.EventHandler(this.buttonAddTeacher_Click);
 			// 
 			// MainForm
 			// 
@@ -344,6 +358,7 @@
 		private System.Windows.Forms.ComboBox comboBoxStudentsDirection;
 		private System.Windows.Forms.Label labelStudentsDirection;
 		private System.Windows.Forms.Button buttonAddStudent;
+		private System.Windows.Forms.Button buttonAddTeacher;
 	}
 }
 
