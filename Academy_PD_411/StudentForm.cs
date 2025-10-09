@@ -59,7 +59,14 @@ namespace Academy_PD_411
 			//MemoryStream ms = new MemoryStream(photo_obj as byte[]);
 			////bf.Serialize(ms, photo_obj);
 			//pictureBoxPhoto.Image = Image.FromStream(ms, true, true);
-			pictureBoxPhoto.Image = connector.DownLoadPhoto(stud_id, "Students", "photo");
+			try
+			{
+				pictureBoxPhoto.Image = connector.DownLoadPhoto(stud_id, "Students", "photo");
+			}
+			catch (Exception ex)
+			{
+				//MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}		
 		}
 		void InitForm()
 		{
