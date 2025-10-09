@@ -53,11 +53,13 @@ namespace Academy_PD_411
 			labelID.Text = $"ID: {student.Rows[0][0].ToString()}";
 
 			///////////////////////////
-
-			BinaryFormatter bf = new BinaryFormatter();
-			MemoryStream ms = new MemoryStream();
-			bf.Serialize(ms, student.Rows[0][7]);
-			pictureBoxPhoto.Image = Image.FromStream(ms);
+			//object photo_obj = student.Rows[0][7];
+			//Console.WriteLine(photo_obj.ToString());
+			//BinaryFormatter bf = new BinaryFormatter();
+			//MemoryStream ms = new MemoryStream(photo_obj as byte[]);
+			////bf.Serialize(ms, photo_obj);
+			//pictureBoxPhoto.Image = Image.FromStream(ms, true, true);
+			pictureBoxPhoto.Image = connector.DownLoadPhoto(stud_id, "Students", "photo");
 		}
 		void InitForm()
 		{
