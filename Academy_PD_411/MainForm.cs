@@ -286,9 +286,7 @@ namespace Academy_PD_411
 					(
 						"Teachers",
 						"last_name, first_name, middle_name, birth_date, email, phone, teacher_id", // Correct the field list.
-						$"N'{newTeacher.LastName}', N'{newTeacher.FirstName}', N'{newTeacher.MiddleName}', " +
-						$"'{newTeacher.BirthDate}', N'{newTeacher.Email}', N'{newTeacher.Phone}', " +
-						$"{newTeacher.TeacherId}"
+						$"N'{newTeacher.LastName}', N'{newTeacher.FirstName}', N'{newTeacher.MiddleName}','{newTeacher.BirthDate}', N'{newTeacher.Email}', N'{newTeacher.Phone}'"
 					);
 				}
 				catch (Exception ex)

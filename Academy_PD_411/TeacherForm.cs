@@ -27,6 +27,7 @@ namespace Academy_PD_411
 		{
 			DataTable teacher = connector.Select("*", "Teachers", $"teacher_id = {teacherId}");
 
+				textBoxTeacherId.Text = teacher.Rows[0][0].ToString();
 				textBoxLastName.Text = teacher.Rows[0][1].ToString();
 				textBoxFirstName.Text = teacher.Rows[0][2].ToString();
 				textBoxMiddleName.Text = teacher.Rows[0][3].ToString();
@@ -34,8 +35,6 @@ namespace Academy_PD_411
 				dateTimePickerBirthDate.Value = Convert.ToDateTime(teacher.Rows[0][4]);
 				textBoxEmail.Text = teacher.Rows[0][5].ToString();
 				textBoxPhone.Text = teacher.Rows[0][6].ToString();
-
-				textBoxTeacherId.Text = teacher.Rows[0][0].ToString();
 
 			try
 			{
@@ -76,13 +75,13 @@ namespace Academy_PD_411
 
 			Teacher = new Teacher
 			(
+				teacherIdValue,
 				textBoxLastName.Text,
 				textBoxFirstName.Text,
 				textBoxMiddleName.Text,
 				dateTimePickerBirthDate.Text,
 				textBoxEmail.Text,
 				textBoxPhone.Text,
-				teacherIdValue,
 				pictureBoxTeacherPhoto.Image
 			);
 

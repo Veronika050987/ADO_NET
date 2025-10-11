@@ -16,9 +16,10 @@ namespace Academy_PD_411
 
 		public Teacher
 		(
+			short teacherId,
 			string last_name, string first_name, string middle_name,
 			string birth_date, string email, string phone,
-			short teacherId,
+			//short teacherId,
 			Image photo
 		): base(last_name, first_name, middle_name, birth_date, email, phone, photo)
 		{
@@ -27,7 +28,7 @@ namespace Academy_PD_411
 
 		public override string ToString()
 		{
-			return $"N'{LastName}', N'{FirstName}', N'{MiddleName}', '{BirthDate}', N'{Email}', N'{Phone}', {TeacherId}";
+			return $"{TeacherId}, N'{LastName}', N'{FirstName}', N'{MiddleName}', '{BirthDate}', N'{Email}', N'{Phone}'";
 		}
 
 		public override string ToStringUpdate()
