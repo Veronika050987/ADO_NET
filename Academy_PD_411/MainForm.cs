@@ -232,17 +232,31 @@ namespace Academy_PD_411
 		private void dataGridViewStudents_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			int i = Convert.ToInt32(dataGridViewStudents.SelectedRows[0].Cells[0].Value);
-			StudentForm student = new StudentForm(i);
+			//StudentForm student = new StudentForm(i);
+			//DialogResult result = student.ShowDialog();
+			//if(result == DialogResult.OK)
+			//{
+			//	connector.Update
+			//		(
+			//			"Students", 
+			//			student.Student.ToStringUpdate(),
+			//			$"stud_id={i}"
+			//		);
+			//	connector.UploadPhoto(student.Student.SerializePhoto(), i, "photo", "Students");
+			//	comboBoxStudentsGroup_SelectedIndexChanged(null, null);
+			//}
+			DerivedStudentForm student = new DerivedStudentForm(i);
 			DialogResult result = student.ShowDialog();
 			if(result == DialogResult.OK)
 			{
+
 				connector.Update
 					(
-						"Students", 
-						student.Student.ToStringUpdate(),
+						"Students",
+						(student.Human as Student).ToStringUpdate(),
 						$"stud_id={i}"
 					);
-				connector.UploadPhoto(student.Student.SerializePhoto(), i, "photo", "Students");
+				connector.UploadPhoto((student.Human as Student).SerializePhoto(), i, "photo", "Students");
 				comboBoxStudentsGroup_SelectedIndexChanged(null, null);
 			}
 		}

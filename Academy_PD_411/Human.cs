@@ -22,7 +22,6 @@ namespace Academy_PD_411
 		(
 			string last_name, string first_name, string middle_name,
 			string birth_date, string email, string phone,
-			int group,
 			Image photo
 		)
 		{

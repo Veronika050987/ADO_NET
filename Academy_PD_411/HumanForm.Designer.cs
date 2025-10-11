@@ -47,7 +47,7 @@
 			// pictureBoxPhoto
 			// 
 			this.pictureBoxPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pictureBoxPhoto.Location = new System.Drawing.Point(415, 75);
+			this.pictureBoxPhoto.Location = new System.Drawing.Point(390, 21);
 			this.pictureBoxPhoto.Name = "pictureBoxPhoto";
 			this.pictureBoxPhoto.Size = new System.Drawing.Size(245, 285);
 			this.pictureBoxPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -56,14 +56,14 @@
 			// 
 			// textBoxPhone
 			// 
-			this.textBoxPhone.Location = new System.Drawing.Point(155, 292);
+			this.textBoxPhone.Location = new System.Drawing.Point(130, 238);
 			this.textBoxPhone.Name = "textBoxPhone";
 			this.textBoxPhone.Size = new System.Drawing.Size(216, 22);
 			this.textBoxPhone.TabIndex = 27;
 			// 
 			// textBoxEmail
 			// 
-			this.textBoxEmail.Location = new System.Drawing.Point(155, 248);
+			this.textBoxEmail.Location = new System.Drawing.Point(130, 194);
 			this.textBoxEmail.Name = "textBoxEmail";
 			this.textBoxEmail.Size = new System.Drawing.Size(216, 22);
 			this.textBoxEmail.TabIndex = 26;
@@ -71,28 +71,28 @@
 			// dateTimePickerBirthDate
 			// 
 			this.dateTimePickerBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-			this.dateTimePickerBirthDate.Location = new System.Drawing.Point(155, 204);
+			this.dateTimePickerBirthDate.Location = new System.Drawing.Point(130, 150);
 			this.dateTimePickerBirthDate.Name = "dateTimePickerBirthDate";
 			this.dateTimePickerBirthDate.Size = new System.Drawing.Size(216, 22);
 			this.dateTimePickerBirthDate.TabIndex = 25;
 			// 
 			// textBoxMiddleName
 			// 
-			this.textBoxMiddleName.Location = new System.Drawing.Point(155, 160);
+			this.textBoxMiddleName.Location = new System.Drawing.Point(130, 106);
 			this.textBoxMiddleName.Name = "textBoxMiddleName";
 			this.textBoxMiddleName.Size = new System.Drawing.Size(216, 22);
 			this.textBoxMiddleName.TabIndex = 24;
 			// 
 			// textBoxFirstName
 			// 
-			this.textBoxFirstName.Location = new System.Drawing.Point(155, 116);
+			this.textBoxFirstName.Location = new System.Drawing.Point(130, 62);
 			this.textBoxFirstName.Name = "textBoxFirstName";
 			this.textBoxFirstName.Size = new System.Drawing.Size(216, 22);
 			this.textBoxFirstName.TabIndex = 23;
 			// 
 			// textBoxLastName
 			// 
-			this.textBoxLastName.Location = new System.Drawing.Point(155, 72);
+			this.textBoxLastName.Location = new System.Drawing.Point(130, 18);
 			this.textBoxLastName.Name = "textBoxLastName";
 			this.textBoxLastName.Size = new System.Drawing.Size(216, 22);
 			this.textBoxLastName.TabIndex = 22;
@@ -100,7 +100,7 @@
 			// labelPhone
 			// 
 			this.labelPhone.AutoSize = true;
-			this.labelPhone.Location = new System.Drawing.Point(72, 295);
+			this.labelPhone.Location = new System.Drawing.Point(47, 241);
 			this.labelPhone.Name = "labelPhone";
 			this.labelPhone.Size = new System.Drawing.Size(70, 16);
 			this.labelPhone.TabIndex = 20;
@@ -109,7 +109,7 @@
 			// labelEmail
 			// 
 			this.labelEmail.AutoSize = true;
-			this.labelEmail.Location = new System.Drawing.Point(98, 251);
+			this.labelEmail.Location = new System.Drawing.Point(73, 197);
 			this.labelEmail.Name = "labelEmail";
 			this.labelEmail.Size = new System.Drawing.Size(44, 16);
 			this.labelEmail.TabIndex = 19;
@@ -118,7 +118,7 @@
 			// labelBirthDate
 			// 
 			this.labelBirthDate.AutoSize = true;
-			this.labelBirthDate.Location = new System.Drawing.Point(33, 207);
+			this.labelBirthDate.Location = new System.Drawing.Point(8, 153);
 			this.labelBirthDate.Name = "labelBirthDate";
 			this.labelBirthDate.Size = new System.Drawing.Size(109, 16);
 			this.labelBirthDate.TabIndex = 18;
@@ -127,7 +127,7 @@
 			// labelMiddleName
 			// 
 			this.labelMiddleName.AutoSize = true;
-			this.labelMiddleName.Location = new System.Drawing.Point(69, 163);
+			this.labelMiddleName.Location = new System.Drawing.Point(44, 109);
 			this.labelMiddleName.Name = "labelMiddleName";
 			this.labelMiddleName.Size = new System.Drawing.Size(73, 16);
 			this.labelMiddleName.TabIndex = 17;
@@ -136,7 +136,7 @@
 			// labelFirstName
 			// 
 			this.labelFirstName.AutoSize = true;
-			this.labelFirstName.Location = new System.Drawing.Point(106, 119);
+			this.labelFirstName.Location = new System.Drawing.Point(81, 65);
 			this.labelFirstName.Name = "labelFirstName";
 			this.labelFirstName.Size = new System.Drawing.Size(36, 16);
 			this.labelFirstName.TabIndex = 16;
@@ -145,7 +145,7 @@
 			// labelLastName
 			// 
 			this.labelLastName.AutoSize = true;
-			this.labelLastName.Location = new System.Drawing.Point(73, 75);
+			this.labelLastName.Location = new System.Drawing.Point(48, 21);
 			this.labelLastName.Name = "labelLastName";
 			this.labelLastName.Size = new System.Drawing.Size(69, 16);
 			this.labelLastName.TabIndex = 15;
@@ -169,7 +169,7 @@
 			this.Controls.Add(this.labelFirstName);
 			this.Controls.Add(this.labelLastName);
 			this.Name = "HumanForm";
-			this.Size = new System.Drawing.Size(708, 580);
+			this.Size = new System.Drawing.Size(649, 331);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
