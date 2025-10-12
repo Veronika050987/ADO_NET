@@ -260,5 +260,15 @@ namespace Academy_PD_411
 				comboBoxStudentsGroup_SelectedIndexChanged(null, null);
 			}
 		}
+
+		private void buttonAddTeacher_Click(object sender, EventArgs e)
+		{
+	
+		}
+
+		private void dataGridViewTeachers_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			
+		}
 	}
 }

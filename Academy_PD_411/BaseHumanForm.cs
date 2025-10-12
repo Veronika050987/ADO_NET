@@ -17,7 +17,7 @@ namespace Academy_PD_411
 		public BaseHumanForm()
 		{
 			InitializeComponent();
-			connector = new Connector();
+			//connector = new Connector();
 			buttonBrowsePhoto.Click += new EventHandler(buttonBrowsePhoto_Click);
 			buttonOK.Click += new EventHandler(buttonOK_Click);
 		}

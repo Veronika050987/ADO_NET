@@ -66,6 +66,12 @@
     <Compile Include="DerivedStudentForm.Designer.cs">
       <DependentUpon>DerivedStudentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DerivedTeachersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DerivedTeachersForm.Designer.cs">
+      <DependentUpon>DerivedTeachersForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Human.cs" />
     <Compile Include="HumanForm.cs">
       <SubType>UserControl</SubType>
@@ -89,12 +95,16 @@
     <Compile Include="StudentForm.Designer.cs">
       <DependentUpon>StudentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Teacher.cs" />
     <Compile Include="Week.cs" />
     <EmbeddedResource Include="BaseHumanForm.resx">
       <DependentUpon>BaseHumanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DerivedStudentForm.resx">
       <DependentUpon>DerivedStudentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DerivedTeachersForm.resx">
+      <DependentUpon>DerivedTeachersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HumanForm.resx">
       <DependentUpon>HumanForm.cs</DependentUpon>
