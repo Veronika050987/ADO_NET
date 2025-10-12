@@ -253,91 +253,34 @@ namespace Academy_PD_411
 			DialogResult result = teacher.ShowDialog();
 			if (result == DialogResult.OK)
 			{
-				Teacher newTeacher = teacher.Teacher;
-
-				if (newTeacher == null || newTeacher.TeacherId == 0)
-				{
-					MessageBox.Show("Cannot add a teacher with a null ID. Re-enter Teacher Data.", "Error", 
-						MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return; // Re-prompt user
-				}
-
-				// Check and insert the photo.
-				if (newTeacher.Photo != null)
-				{
-					byte[] photoBytes = newTeacher.SerializePhoto();
-
-					try
-					{
-						short teacherIdShort = Convert.ToInt16(newTeacher.TeacherId);
-						connector.UploadPhoto(photoBytes, teacherIdShort, "photo", "Teachers"); // Use short Id
-					}
-					catch (FormatException)
-					{
-						MessageBox.Show("Teacher Id is invalid. Re-enter the teacher.", "Validation error", 
-							MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-				}
-
-				try
-				{
-					// Use the Teacher object's fields when inserting into the database
-					connector.InsertTeachers
-					(
-						"Teachers",
-						"last_name, first_name, middle_name, birth_date, email, phone, teacher_id", // Correct the field list.
-						$"N'{newTeacher.LastName}', N'{newTeacher.FirstName}', N'{newTeacher.MiddleName}','{newTeacher.BirthDate}', N'{newTeacher.Email}', N'{newTeacher.Phone}'"
-					);
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show("Database error. Re-enter the teacher." + ex.Message, "Validation error", 
-						MessageBoxButtons.OK, MessageBoxIcon.Error);
-				}
+				//Делаем INSERT в базу
+				connector.
+				Insert
+				(
+					"Teachers",
+					"last_name, first_name, middle_name, birth_date, email, phone",
+					teacher.Teacher.ToString()
+				);
+				int id = Convert.ToInt32(connector.Scalar("SELECT MAX(teacher_id) FROM Teachers"));
+				connector.UploadPhoto(teacher.Teacher.SerializePhoto(), id, "photo", "Teachers");
 			}
 		}
 
 		private void dataGridViewTeachers_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (dataGridViewTeachers.SelectedRows.Count == 0) return;
-
-			string teacherIdString = dataGridViewTeachers.SelectedRows[0].Cells[0].Value.ToString();
-
-			if (short.TryParse(teacherIdString, out short teacherIdShort))
+			short i = Convert.ToSByte(dataGridViewTeachers.SelectedRows[0].Cells[0].Value);
+			TeacherForm teacher = new TeacherForm(i);
+			DialogResult result = teacher.ShowDialog();
+			if (result == DialogResult.OK)
 			{
-				TeacherForm teacherForm = new TeacherForm(teacherIdShort);
-
-				DialogResult result = teacherForm.ShowDialog();
-
-				if (result == DialogResult.OK)
-				{
-					try
-					{
-						// The ToStringUpdate() is used. The parameters must be the same value. Make sure `newTeacher` has the original TeacherId.
-						connector.Update("Teachers", teacherForm.Teacher.ToStringUpdate(), $"teacher_id = {teacherIdShort}");
-
-						// Upload the updated photo
-						if (teacherForm.Teacher.Photo != null)
-						{
-							byte[] photoBytes = teacherForm.Teacher.SerializePhoto();
-							connector.UploadPhoto(photoBytes, teacherIdShort, "photo", "Teachers");  //Pass the converted ID
-						}
-					}
-					catch (Exception ex)
-					{
-						MessageBox.Show("Error updating teacher: " + ex.Message, 
-							"Database Error", 
-							MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-				}
+				connector.Update
+					(
+						"Teachers",
+						teacher.Teacher.ToStringUpdate(),
+						$"teacher_id={i}"
+					);
+				connector.UploadPhoto(teacher.Teacher.SerializePhoto(), i, "photo", "Teachers");
 			}
-			else
-			{
-				MessageBox.Show("Invalid Teacher ID. ID must be a whole number. " + teacherIdString, 
-					"Validation Error", 
-					MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-
 		}
 	}
 }

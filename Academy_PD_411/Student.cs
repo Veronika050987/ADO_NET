@@ -32,10 +32,7 @@ namespace Academy_PD_411
 
 		public override string ToStringUpdate()
 		{
-			return $@"
-{base.ToStringUpdate()},
-[group]={Group}
-";
+			return $@"{base.ToStringUpdate()},[group]={Group}";
 		}
 	}
 }

@@ -10,9 +10,8 @@ namespace Academy_PD_411
 {
 	class Teacher : Person
 	{
-		public Teacher() : base() { }
-
 		public short TeacherId { get; set; }
+		public Teacher() : base() { }
 
 		public Teacher
 		(
@@ -28,15 +27,12 @@ namespace Academy_PD_411
 
 		public override string ToString()
 		{
-			return $"{TeacherId}, N'{LastName}', N'{FirstName}', N'{MiddleName}', '{BirthDate}', N'{Email}', N'{Phone}'";
+			return $"{base.ToString()},{TeacherId}";
 		}
 
 		public override string ToStringUpdate()
 		{
-			return $@"
-{base.ToStringUpdate()},
-teacher_id={TeacherId}
-";
+			return $@"{base.ToStringUpdate()},teacher_id={TeacherId}";
 		}
 
 	}
