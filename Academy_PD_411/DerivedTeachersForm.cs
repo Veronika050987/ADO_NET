@@ -12,11 +12,12 @@ namespace Academy_PD_411
 {
 	public partial class DerivedTeachersForm : BaseHumanForm
 	{
+		internal Teacher Teacher { get; set; }
 		public DerivedTeachersForm()
 		{
 			InitializeComponent();
 		}
-		public DerivedTeachersForm(short id) : this()
+		public DerivedTeachersForm(short id):this()
 		{
 			Human = new Teacher(id);
 			Extract();
