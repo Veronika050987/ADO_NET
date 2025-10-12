@@ -259,6 +259,51 @@ namespace Academy_PD_411
 				connector.UploadPhoto((student.Human as Student).SerializePhoto(), i, "photo", "Students");
 				comboBoxStudentsGroup_SelectedIndexChanged(null, null);
 			}
+
+
+		}
+
+		private void buttonAddTeachers_Click(object sender, EventArgs e)
+		{
+			DerivedTeachersForm teacher = new DerivedTeachersForm();
+			DialogResult result = teacher.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				//Делаем INSERT в базу
+				connector.
+				Insert
+				(
+					"Teachers",
+					"last_name, first_name, middle_name, birth_date, email, phone",
+					teacher.Teacher.ToString()
+				);
+				short id = Convert.ToSByte(connector.Scalar("SELECT MAX(teacher_id) FROM Teachers"));
+				connector.UploadPhoto(teacher.Teacher.SerializePhoto(), id, "photo", "Teachers");
+			}
+
+		}
+
+		private void dataGridViewTeachers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+
+		}
+
+		private void dataGridViewTeachers_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			short i = Convert.ToSByte(dataGridViewStudents.SelectedRows[0].Cells[0].Value);
+			DerivedTeachersForm teacher = new DerivedTeachersForm(i);
+			DialogResult result = teacher.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+
+				connector.Update
+					(
+						"Teachers",
+						(teacher.Human as Teacher).ToStringUpdate(),
+						$"teacher_id={i}"
+					);
+				connector.UploadPhoto((teacher.Human as Teacher).SerializePhoto(), i, "photo", "Teachers");
+			}
 		}
 	}
 }
