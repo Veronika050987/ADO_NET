@@ -54,27 +54,34 @@ namespace Academy_PD_411
 			AllocConsole();
 			connectionString = ConfigurationManager.ConnectionStrings["PD_321"].ConnectionString;
 			Console.WriteLine(connectionString);
-			connection = new SqlConnection(connectionString);
-			connector = new Connector();
-			//LoadDirections();
-			//LoadGroups();
-			Console.WriteLine(this.Name);
-			Console.WriteLine(tabControl.TabCount);
-
-			d_groupDirection = LoadDataToDictionary("*", "Directions");
-			d_studentsGroup = LoadDataToDictionary("*", "Groups");
-			comboBoxGroupsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
-			comboBoxStudentsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
-			comboBoxStudentsGroup.Items.AddRange(d_studentsGroup.Keys.ToArray());
-			comboBoxStudentsDirection.SelectedIndex = comboBoxGroupsDirection.SelectedIndex = 0;
-			comboBoxStudentsGroup.SelectedIndex = 0;
-
-			tabControl.SelectedIndex = 0;
-
-			for (int i = 0; i < tabControl.TabCount; i++)
+			try
 			{
-				(this.Controls.Find($"dataGridView{tabControl.TabPages[i].Name.Remove(0, "tabPage".Length)}", true)[0] as DataGridView).RowsAdded
-					+= new DataGridViewRowsAddedEventHandler(this.dataGridViewChanged);
+				connection = new SqlConnection(connectionString);
+				connector = new Connector();
+				//LoadDirections();
+				//LoadGroups();
+				Console.WriteLine(this.Name);
+				Console.WriteLine(tabControl.TabCount);
+
+				d_groupDirection = LoadDataToDictionary("*", "Directions");
+				d_studentsGroup = LoadDataToDictionary("*", "Groups");
+				comboBoxGroupsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
+				comboBoxStudentsDirection.Items.AddRange(d_groupDirection.Keys.ToArray());
+				comboBoxStudentsGroup.Items.AddRange(d_studentsGroup.Keys.ToArray());
+				comboBoxStudentsDirection.SelectedIndex = comboBoxGroupsDirection.SelectedIndex = 0;
+				comboBoxStudentsGroup.SelectedIndex = 0;
+
+				tabControl.SelectedIndex = 0;
+
+				for (int i = 0; i < tabControl.TabCount; i++)
+				{
+					(this.Controls.Find($"dataGridView{tabControl.TabPages[i].Name.Remove(0, "tabPage".Length)}", true)[0] as DataGridView).RowsAdded
+						+= new DataGridViewRowsAddedEventHandler(this.dataGridViewChanged);
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
 			}
 		}
 
