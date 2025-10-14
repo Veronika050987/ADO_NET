@@ -51,6 +51,14 @@ namespace Academy_PD_411
 		public MainForm()
 		{
 			InitializeComponent();
+
+			Login loginForm = new Login();
+			if (loginForm.ShowDialog() != DialogResult.OK)
+			{
+				Application.Exit();
+				return;
+			}
+
 			AllocConsole();
 			connectionString = ConfigurationManager.ConnectionStrings["PD_321"].ConnectionString;
 			Console.WriteLine(connectionString);
