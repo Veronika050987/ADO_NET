@@ -15,17 +15,34 @@ namespace Academy_PD_411
 	{
 		public string connectionString = "Data Source=LAPTOP-4AUB2J6T\\SQLEXPRESS;Initial Catalog=PD_321;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
+		private const string DefaultUsername = "user2";
+		private const string DefaultPassword = "222";
+
 		public Login()
 		{
 			InitializeComponent();
+
+			if (textBoxUserName != null && textBoxPassword != null)
+			{
+				textBoxUserName.Text = DefaultUsername;
+				textBoxPassword.Text = DefaultPassword;
+			}
+			else
+			{
+				// Обработка ошибки, если элементы не найдены
+				Console.WriteLine("ВНИМАНИЕ: Не найдены элементы textBoxUserName или textBoxPassword в форме Login!");
+				MessageBox.Show("Ошибка: Не найдены элементы ввода логина/пароля.  Обратитесь к разработчику.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				this.DialogResult = DialogResult.Cancel;  // Отменяем открытие основной формы
+				this.Close();
+			}
 		}
 
 		private void buttonLogin_Click(object sender, EventArgs e)
 		{
-			string username = textBoxUserName.Text;
+			string user_name = textBoxUserName.Text;
 			string password = textBoxPassword.Text;
 
-			if (ValidateUser(username, password))
+			if (ValidateUser(user_name, password))
 			{
 				DialogResult = DialogResult.OK;
 				Close();
@@ -35,7 +52,7 @@ namespace Academy_PD_411
 				MessageBox.Show("Invalid username or password", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
-		private bool ValidateUser(string username, string password)
+		private bool ValidateUser(string user_name, string password)
 		{
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
@@ -43,10 +60,10 @@ namespace Academy_PD_411
 				{
 					connection.Open();
 
-					string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND Password = @Password";
+					string query = "SELECT COUNT(*) FROM Users WHERE user_name = @user_name AND password = @password";
 					SqlCommand command = new SqlCommand(query, connection);
-					command.Parameters.AddWithValue("@Username", username);
-					command.Parameters.AddWithValue("@Password", password);
+					command.Parameters.AddWithValue("@user_name", user_name);
+					command.Parameters.AddWithValue("@password", password);
 
 					int userCount = (int)command.ExecuteScalar();
 
