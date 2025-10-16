@@ -15,8 +15,8 @@ namespace Academy_PD_411
 	{
 		public string connectionString = "Data Source=LAPTOP-4AUB2J6T\\SQLEXPRESS;Initial Catalog=PD_321;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-		private const string DefaultUsername = "user2";
-		private const string DefaultPassword = "222";
+		//private const string DefaultUsername = "user2";
+		//private const string DefaultPassword = "222";
 
 		public Login()
 		{
@@ -24,8 +24,8 @@ namespace Academy_PD_411
 
 			if (textBoxUserName != null && textBoxPassword != null)
 			{
-				textBoxUserName.Text = DefaultUsername;
-				textBoxPassword.Text = DefaultPassword;
+				//textBoxUserName.Text = DefaultUsername;
+				//textBoxPassword.Text = DefaultPassword;
 			}
 			else
 			{

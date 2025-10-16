@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data_Set", "Data_Set\Data_S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ", "LINQ\LINQ.csproj", "{D36E6B27-855D-4176-A37C-669EA3BF83F8}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Academy_PD_411_Setup", "Academy_PD_411_Setup\Academy_PD_411_Setup.vdproj", "{32F12FF0-60D4-1800-0A3C-67DA2BDCAD7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,8 @@ Global
 		{D36E6B27-855D-4176-A37C-669EA3BF83F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D36E6B27-855D-4176-A37C-669EA3BF83F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D36E6B27-855D-4176-A37C-669EA3BF83F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32F12FF0-60D4-1800-0A3C-67DA2BDCAD7F}.Debug|Any CPU.ActiveCfg = Debug
+		{32F12FF0-60D4-1800-0A3C-67DA2BDCAD7F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
