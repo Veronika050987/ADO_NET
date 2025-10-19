@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+using DataBaseTools;
+
 namespace Academy_PD_411
 {
 	public partial class StudentForm : Form

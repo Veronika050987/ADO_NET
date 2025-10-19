@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using DataBaseTools;
+
 namespace Academy_PD_411
 {
 	public partial class BaseHumanForm : Form
