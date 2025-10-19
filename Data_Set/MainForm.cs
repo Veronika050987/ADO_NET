@@ -222,6 +222,22 @@ namespace Data_Set
 
 		private void comboBoxDisciplinesForDirection_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			DataRowView selectedDirection = (DataRowView)comboBoxDisciplinesForDirection.SelectedItem;
+			//int direction = Convert.ToInt32(selectedDirection["direction_id"]);
+			string direction = selectedDirection["direction_id"].ToString();
+
+			DataTable Disciplines = DisciplinesDirectionsRelation.Tables["Disciplines"];
+			DataTable DDR = DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"];
+
+			dataGridViewDisciplines.DataSource =
+				(
+				from	ddr			in DDR.AsEnumerable()
+				where	ddr.Field<string>("direction") == direction
+				join	discipline	in Disciplines.AsEnumerable()
+				on		ddr.Field<string>("discipline") equals discipline.Field<string>("discipline_id")
+				select	discipline
+				).CopyToDataTable();
+
 			////1) Получаем набор значений из связующей таблицы
 			//DataRow[] ddr = DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"]
 			//	.Select($"direction={comboBoxDisciplinesForDirection.SelectedValue}");
@@ -239,14 +255,14 @@ namespace Data_Set
 
 			//////////////////////////////////////////////////////////
 
-			DataRow[] ddr = DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"]
-				.Select($"direction={comboBoxDisciplinesForDirection.SelectedValue}");
-			DataTable dtDisciplines = DisciplinesDirectionsRelation.Tables["Disciplines"].Clone();
+			//DataRow[] ddr = DisciplinesDirectionsRelation.Tables["DisciplinesDirectionsRelation"]
+			//	.Select($"direction={comboBoxDisciplinesForDirection.SelectedValue}");
+			//DataTable dtDisciplines = DisciplinesDirectionsRelation.Tables["Disciplines"].Clone();
 
-			object[] discipline_ids = ddr.Select(row => row["discipline"]).Distinct().ToArray();
-			string filter = $"discipline_id IN ({string.Join(",", discipline_ids)})";			
-			dataGridViewDisciplines.DataSource = 
-				DisciplinesDirectionsRelation.Tables["Disciplines"].Select(filter).CopyToDataTable();
+			//object[] discipline_ids = ddr.Select(row => row["discipline"]).Distinct().ToArray();
+			//string filter = $"discipline_id IN ({string.Join(",", discipline_ids)})";			
+			//dataGridViewDisciplines.DataSource = 
+			//	DisciplinesDirectionsRelation.Tables["Disciplines"].Select(filter).CopyToDataTable();
 		}
 	}
 }
